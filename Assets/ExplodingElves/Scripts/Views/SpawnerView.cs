@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using ExplodingElves.Core;
 using ExplodingElves.Interfaces;
 using ExplodingElves.Pools;
@@ -9,8 +8,8 @@ using Zenject;
 namespace ExplodingElves.Views
 {
     /// <summary>
-    /// Presentation component that periodically spawns elves of a specific color.
-    /// SRP: Only manages spawn timing and invokes the pool.
+    ///     Presentation component that periodically spawns elves of a specific color.
+    ///     SRP: Only manages spawn timing and invokes the pool.
     /// </summary>
     public class SpawnerView : MonoBehaviour, ISpawner
     {
@@ -21,29 +20,45 @@ namespace ExplodingElves.Views
         [SerializeField] [Min(0f)] private float interval = DefaultInterval;
         [SerializeField] [Min(0f)] private float spawnRadius = 1.5f;
         [SerializeField] private ElfData elfData;
-        
+
         private ElfPool _pool;
         private Coroutine _spawnLoop;
 
-        public ElfColor ElfColor => elfColor;
-        public float Interval => interval;
+        private void OnEnable()
+        {
+            StartSpawnLoop();
+        }
 
-        private void OnEnable() => StartSpawnLoop();
-        private void OnDisable() => StopSpawnLoop();
+        private void OnDisable()
+        {
+            StopSpawnLoop();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+            Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        }
 
         private void OnValidate()
         {
             // Ensure we have valid data in editor
-            if (elfData == null)
-            {
-                Debug.LogWarning($"SpawnerView on {gameObject.name} has no ElfData assigned!", this);
-            }
+            if (elfData == null) Debug.LogWarning($"SpawnerView on {gameObject.name} has no ElfData assigned!", this);
         }
+
+        public ElfColor ElfColor => elfColor;
+        public float Interval => interval;
 
         public void SetInterval(float newInterval)
         {
             interval = Mathf.Max(0f, newInterval);
-            if (isActiveAndEnabled) 
+            if (isActiveAndEnabled)
                 RestartSpawnLoop();
         }
 
@@ -63,7 +78,7 @@ namespace ExplodingElves.Views
 
             Vector3 spawnPos = transform.position + Random.insideUnitSphere * spawnRadius;
             spawnPos.y = transform.position.y; // Keep on same Y level
-            
+
             _pool.Spawn(spawnPos, elfData);
         }
 
@@ -75,7 +90,7 @@ namespace ExplodingElves.Views
 
         private void StartSpawnLoop()
         {
-            if (_spawnLoop == null) 
+            if (_spawnLoop == null)
                 _spawnLoop = StartCoroutine(SpawnRoutine());
         }
 
@@ -99,22 +114,10 @@ namespace ExplodingElves.Views
             while (enabled)
             {
                 float waitTime = Mathf.Max(MinInterval, interval);
-                
+
                 Spawn();
                 yield return new WaitForSeconds(waitTime);
             }
-        }
-        
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
-            Gizmos.DrawWireSphere(transform.position, spawnRadius);
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, spawnRadius);
         }
     }
 }

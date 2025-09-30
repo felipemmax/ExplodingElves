@@ -9,25 +9,22 @@ using Zenject;
 namespace ExplodingElves.Managers
 {
     /// <summary>
-    /// Dependency injection configuration for the game.
-    /// Sets up all bindings using Zenject IoC container.
+    ///     Dependency injection configuration for the game.
+    ///     Sets up all bindings using Zenject IoC container.
     /// </summary>
     public class GameInstaller : MonoInstaller
     {
-        [Header("Prefab Resources")]
-        [Tooltip("Resource path for the Elf prefab (Resources/Prefabs/Elf)")]
+        [Header("Prefab Resources")] [Tooltip("Resource path for the Elf prefab (Resources/Prefabs/Elf)")]
         public string elfPrefabResourcePath = "Prefabs/Elf";
 
         [Tooltip("Resource path for the explosion VFX prefab (Resources/Prefabs/ExplosionFX)")]
         public string explosionPrefabResourcePath = "Prefabs/ExplosionFX";
-        
-        [Header("Pool Settings")]
-        [Min(0)] public int elfPoolInitialSize = 16;
+
+        [Header("Pool Settings")] [Min(0)] public int elfPoolInitialSize = 16;
+
         [Min(0)] public int explosionWarmupCount = 8;
 
-        [Header("Gameplay Settings")]
-        [Min(0f)] 
-        [Tooltip("Cooldown in seconds between extra spawns from collisions")]
+        [Header("Gameplay Settings")] [Min(0f)] [Tooltip("Cooldown in seconds between extra spawns from collisions")]
         public float extraSpawnCooldownSeconds = 1.5f;
 
         public override void InstallBindings()
@@ -36,9 +33,9 @@ namespace ExplodingElves.Managers
             BindPools();
             BindManagers();
             BindSceneComponents();
-            
+
             WarmupPools();
-            
+
             Debug.Log("[GameInstaller] All bindings installed successfully");
         }
 
@@ -78,11 +75,11 @@ namespace ExplodingElves.Managers
         private void WarmupPools()
         {
             // Pre-instantiate explosion effects to avoid runtime hiccups
-            var explosionPrefab = Resources.Load<GameObject>(explosionPrefabResourcePath);
-            
+            GameObject explosionPrefab = Resources.Load<GameObject>(explosionPrefabResourcePath);
+
             if (explosionPrefab != null && explosionWarmupCount > 0)
             {
-                var prefabPool = Container.Resolve<IPrefabPool>();
+                IPrefabPool prefabPool = Container.Resolve<IPrefabPool>();
                 prefabPool.Warmup(explosionPrefab, explosionWarmupCount);
                 Debug.Log($"[GameInstaller] Warmed up {explosionWarmupCount} explosion instances");
             }

@@ -1,5 +1,4 @@
 ﻿using System;
-using ExplodingElves.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +20,7 @@ namespace ExplodingElves.Core
         public ElfColor ElfColor => _data.ElfColor;
         public float Speed => _data.Speed;
         public Vector2 DirectionChangeInterval => _data.DirectionChangeInterval;
-        
+
         public bool ShouldChangeDirection => _timeUntilDirectionChange <= 0f;
 
         public void Tick(float deltaTime)
@@ -38,7 +37,7 @@ namespace ExplodingElves.Core
         {
             if (other == null) return CollisionDecision.None();
 
-            if (other.ElfColor == ElfColor) 
+            if (other.ElfColor == ElfColor)
                 return _collisionHandler.HandleSameColor(this, other);
 
             return _collisionHandler.HandleDifferentColor(this, other);

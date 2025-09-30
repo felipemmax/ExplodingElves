@@ -3,19 +3,21 @@
 namespace ExplodingElves.Core
 {
     /// <summary>
-    /// Configuration data for an Elf entity.
-    /// ScriptableObject allows designers to configure elf behavior without code.
+    ///     Configuration data for an Elf entity.
+    ///     ScriptableObject allows designers to configure elf behavior without code.
     /// </summary>
     [CreateAssetMenu(fileName = "ElfData", menuName = "ExplodingElves/Elf Data")]
     public class ElfData : ScriptableObject
     {
-        [Header("Movement")]
-        [SerializeField] [Min(0f)] private float speed = 3f;
-        [SerializeField] [Min(0.1f)] private float movementSmoothTime = 0.5f;
-        [SerializeField] private Vector2 directionChangeInterval = new Vector2(2f, 5f);
+        [Header("Movement")] [SerializeField] [Min(0f)]
+        private float speed = 3f;
 
-        [Header("Appearance")]
-        [SerializeField] private ElfColor elfColor;
+        [SerializeField] [Min(0.1f)] private float movementSmoothTime = 0.5f;
+        [SerializeField] private Vector2 directionChangeInterval = new(2f, 5f);
+
+        [Header("Appearance")] [SerializeField]
+        private ElfColor elfColor;
+
         [SerializeField] private Material elfMaterial;
 
         public float Speed => speed;
@@ -28,9 +30,7 @@ namespace ExplodingElves.Core
         {
             // Ensure interval min is never greater than max
             if (directionChangeInterval.x > directionChangeInterval.y)
-            {
                 directionChangeInterval.y = directionChangeInterval.x;
-            }
         }
     }
 }

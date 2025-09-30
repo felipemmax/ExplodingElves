@@ -8,8 +8,8 @@ namespace ExplodingElves.Managers
 {
     public class SpawnManager
     {
-        private readonly ElfPool _pool;
         private readonly SpawnCooldownService _cooldown;
+        private readonly ElfPool _pool;
 
         [Inject]
         public SpawnManager(ElfPool pool, SpawnCooldownService cooldown)

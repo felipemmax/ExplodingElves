@@ -1,16 +1,15 @@
-﻿using ExplodingElves.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ExplodingElves.Services
 {
     /// <summary>
-    /// Provides random points inside a configurable floor bounds. Validates by raycasting to floor layer.
+    ///     Provides random points inside a configurable floor bounds. Validates by raycasting to floor layer.
     /// </summary>
     public class WaypointProvider
     {
         private readonly Vector3 _center;
-        private readonly Vector3 _size;
         private readonly int _floorLayerMask;
+        private readonly Vector3 _size;
 
         public WaypointProvider(Vector3 center, Vector3 size, int floorLayerMask)
         {
@@ -24,15 +23,12 @@ namespace ExplodingElves.Services
             // Try a few times to find a valid point above floor
             for (int i = 0; i < 8; i++)
             {
-                Vector3 p = new Vector3(
+                Vector3 p = new(
                     _center.x + (Random.value - 0.5f) * _size.x,
                     _center.y + _size.y * 0.5f + 5f, // start ray a bit above bounds
                     _center.z + (Random.value - 0.5f) * _size.z);
 
-                if (Physics.Raycast(p, Vector3.down, out var hit, 50f, _floorLayerMask))
-                {
-                    return hit.point;
-                }
+                if (Physics.Raycast(p, Vector3.down, out RaycastHit hit, 50f, _floorLayerMask)) return hit.point;
             }
 
             // Fallback: flat point at center

@@ -3,13 +3,13 @@
 namespace ExplodingElves.Interfaces
 {
     /// <summary>
-    /// Generic prefab-based pool service that can pool any kind of GameObject prefab.
-    /// Provides spawn and despawn operations and optional warmup.
+    ///     Generic prefab-based pool service that can pool any kind of GameObject prefab.
+    ///     Provides spawn and despawn operations and optional warmup.
     /// </summary>
     public interface IPrefabPool
     {
         /// <summary>
-        /// Spawn an instance of a prefab from the pool (or instantiate if none available).
+        ///     Spawn an instance of a prefab from the pool (or instantiate if none available).
         /// </summary>
         /// <param name="prefab">The prefab to spawn.</param>
         /// <param name="position">World position.</param>
@@ -19,13 +19,13 @@ namespace ExplodingElves.Interfaces
         GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null);
 
         /// <summary>
-        /// Return an instance back to its corresponding prefab pool.
+        ///     Return an instance back to its corresponding prefab pool.
         /// </summary>
         /// <param name="instance">Spawned instance to return.</param>
         void Despawn(GameObject instance);
 
         /// <summary>
-        /// Pre-create a number of instances for a given prefab and keep them disabled in the pool.
+        ///     Pre-create a number of instances for a given prefab and keep them disabled in the pool.
         /// </summary>
         /// <param name="prefab">The prefab to warm up.</param>
         /// <param name="count">Number of instances to pre-create.</param>

@@ -24,9 +24,8 @@ namespace ExplodingElves.Services
         {
             float now = Time.time;
             if (_lastTimeByColor.TryGetValue(color, out float last))
-            {
-                if (now - last < _cooldownSeconds) return false;
-            }
+                if (now - last < _cooldownSeconds)
+                    return false;
 
             _lastTimeByColor[color] = now;
             return true;

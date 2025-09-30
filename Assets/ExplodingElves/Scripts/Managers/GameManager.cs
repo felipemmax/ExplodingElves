@@ -8,8 +8,8 @@ namespace ExplodingElves.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [Tooltip("Spawn one elf from each spawner on start.")] 
-        [SerializeField] private bool spawnOnStart = true;
+        [Tooltip("Spawn one elf from each spawner on start.")] [SerializeField]
+        private bool spawnOnStart = true;
 
         private ElfPool _pool;
         private List<ISpawner> _spawners;
