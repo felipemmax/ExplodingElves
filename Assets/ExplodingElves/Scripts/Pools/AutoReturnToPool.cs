@@ -3,10 +3,6 @@ using UnityEngine;
 
 namespace ExplodingElves.Pools
 {
-    /// <summary>
-    ///     Helper component that returns an instance to the pool after a delay.
-    ///     Attach dynamically or on prefab. Call Begin(seconds, pool) when spawned.
-    /// </summary>
     public class AutoReturnToPool : MonoBehaviour
     {
         private float _duration;
@@ -18,6 +14,7 @@ namespace ExplodingElves.Pools
         {
             if (!_running) return;
             _timer += Time.deltaTime;
+            
             if (_timer >= _duration)
             {
                 _running = false;

@@ -5,10 +5,6 @@ using Zenject;
 
 namespace ExplodingElves.Pools
 {
-    /// <summary>
-    ///     Generic prefab-based pool that can be used for any GameObject assets (FX, UI elements, projectiles, etc.).
-    ///     Internally uses Zenject's DiContainer for instantiation to preserve DI on pooled prefabs.
-    /// </summary>
     public class PrefabPool : IPrefabPool
     {
         private readonly DiContainer _container;
@@ -65,7 +61,6 @@ namespace ExplodingElves.Pools
 
             if (!_instanceToPrefab.TryGetValue(instance, out GameObject prefab) || prefab == null)
             {
-                // If instance was not created by this pool, just disable it to avoid Destroy churn.
                 instance.SetActive(false);
                 instance.transform.SetParent(_root, false);
                 return;

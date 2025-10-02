@@ -105,19 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc722e394fd464d9ce35c15d21f978d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplodingElves.Views.ElfView
-  elfColor: 0
-  speed: 10
   targetRenderer: {fileID: 653817073473800316}
-  turnSpeed: 360
-  waypointTolerance: 0.25
-  floorMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  floorCheckDistance: 1
-  walkOnlyWhenFloor: 1
-  idleTimeMin: 0.5
-  idleTimeMax: 2
   animator: {fileID: 693670630529990236}
+  elfCollider: {fileID: 653041031304363010}
 --- !u!1001 &645201648403765224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,6 +180,11 @@ PrefabInstance:
 --- !u!4 &646927062815068318 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4063552230360950, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+  m_PrefabInstance: {fileID: 645201648403765224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &653041031304363010 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 136275810615880682, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
   m_PrefabInstance: {fileID: 645201648403765224}
   m_PrefabAsset: {fileID: 0}
 --- !u!137 &653817073473800316 stripped

@@ -2,10 +2,6 @@
 
 namespace ExplodingElves.Interfaces
 {
-    /// <summary>
-    ///     Generic prefab-based pool service that can pool any kind of GameObject prefab.
-    ///     Provides spawn and despawn operations and optional warmup.
-    /// </summary>
     public interface IPrefabPool
     {
         /// <summary>

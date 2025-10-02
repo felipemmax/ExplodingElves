@@ -14,9 +14,6 @@ namespace ExplodingElves.Managers
     /// </summary>
     public class GameInstaller : MonoInstaller
     {
-        [Header("Prefab Resources")] [Tooltip("Resource path for the Elf prefab (Resources/Prefabs/Elf)")]
-        public string elfPrefabResourcePath = "Prefabs/Elf";
-
         [Tooltip("Resource path for the explosion VFX prefab (Resources/Prefabs/ExplosionFX)")]
         public string explosionPrefabResourcePath = "Prefabs/ExplosionFX";
 
@@ -50,19 +47,11 @@ namespace ExplodingElves.Managers
 
         private void BindPools()
         {
-            // Bind generic prefab pool first (required by other services)
             Container.Bind<IPrefabPool>().To<PrefabPool>().AsSingle();
-
-            // Bind specialized elf pool
-            Container.BindMemoryPool<ElfView, ElfPool>()
-                .WithInitialSize(elfPoolInitialSize)
-                .FromComponentInNewPrefabResource(elfPrefabResourcePath)
-                .UnderTransformGroup("Elves");
         }
 
         private void BindManagers()
         {
-            Container.Bind<SpawnManager>().AsSingle();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
 

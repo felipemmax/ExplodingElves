@@ -7,10 +7,6 @@ using Zenject;
 
 namespace ExplodingElves.Views
 {
-    /// <summary>
-    ///     Presentation component that periodically spawns elves of a specific color.
-    ///     SRP: Only manages spawn timing and invokes the pool.
-    /// </summary>
     public class SpawnerView : MonoBehaviour, ISpawner
     {
         private const float MinInterval = 0.1f;
@@ -20,8 +16,9 @@ namespace ExplodingElves.Views
         [SerializeField] [Min(0f)] private float interval = DefaultInterval;
         [SerializeField] [Min(0f)] private float spawnRadius = 1.5f;
         [SerializeField] private ElfData elfData;
+        [SerializeField] private GameObject prefab;
 
-        private ElfPool _pool;
+        private IPrefabPool _pool;
         private Coroutine _spawnLoop;
 
         private void OnEnable()
@@ -79,11 +76,11 @@ namespace ExplodingElves.Views
             Vector3 spawnPos = transform.position + Random.insideUnitSphere * spawnRadius;
             spawnPos.y = transform.position.y; // Keep on same Y level
 
-            _pool.Spawn(spawnPos, elfData);
+            _pool.Spawn(prefab, spawnPos, Quaternion.identity);
         }
 
         [Inject]
-        private void Construct(ElfPool pool)
+        private void Construct(IPrefabPool pool)
         {
             _pool = pool;
         }
