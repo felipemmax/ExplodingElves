@@ -14,7 +14,7 @@ namespace ExplodingElves.Pools
         {
             if (!_running) return;
             _timer += Time.deltaTime;
-            
+
             if (_timer >= _duration)
             {
                 _running = false;

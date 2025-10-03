@@ -110,7 +110,6 @@ namespace ExplodingElves.Pools
             }
 
             GameObject rootGo = new("__PoolsRoot");
-            Object.DontDestroyOnLoad(rootGo);
             _root = rootGo.transform;
         }
     }

@@ -1,4 +1,4 @@
-﻿using ExplodingElves.Core;
+﻿using ExplodingElves.Core.Characters;
 
 namespace ExplodingElves.Interfaces
 {

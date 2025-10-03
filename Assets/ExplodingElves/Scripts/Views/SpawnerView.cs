@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using ExplodingElves.Core;
+using ExplodingElves.Core.Characters;
 using ExplodingElves.Interfaces;
-using ExplodingElves.Pools;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +15,7 @@ namespace ExplodingElves.Views
         [SerializeField] [Min(0f)] private float interval = DefaultInterval;
         [SerializeField] [Min(0f)] private float spawnRadius = 1.5f;
         [SerializeField] private ElfData elfData;
-        [SerializeField] private GameObject prefab;
+        [SerializeField] private GameObject elfPrefab;
 
         private IPrefabPool _pool;
         private Coroutine _spawnLoop;
@@ -46,7 +45,10 @@ namespace ExplodingElves.Views
         private void OnValidate()
         {
             // Ensure we have valid data in editor
-            if (elfData == null) Debug.LogWarning($"SpawnerView on {gameObject.name} has no ElfData assigned!", this);
+            if (elfData == null)
+                Debug.LogWarning($"SpawnerView on {gameObject.name} has no ElfData assigned!", this);
+            if (elfPrefab == null)
+                Debug.LogWarning($"SpawnerView on {gameObject.name} has no Elf Prefab assigned!", this);
         }
 
         public ElfColor ElfColor => elfColor;
@@ -63,7 +65,7 @@ namespace ExplodingElves.Views
         {
             if (_pool == null)
             {
-                Debug.LogError($"ElfPool not injected into SpawnerView on {gameObject.name}", this);
+                Debug.LogError($"IPrefabPool not injected into SpawnerView on {gameObject.name}", this);
                 return;
             }
 
@@ -73,10 +75,26 @@ namespace ExplodingElves.Views
                 return;
             }
 
+            if (elfPrefab == null)
+            {
+                Debug.LogError($"Elf Prefab not assigned on SpawnerView {gameObject.name}", this);
+                return;
+            }
+
             Vector3 spawnPos = transform.position + Random.insideUnitSphere * spawnRadius;
             spawnPos.y = transform.position.y; // Keep on same Y level
 
-            _pool.Spawn(prefab, spawnPos, Quaternion.identity);
+            GameObject spawnedElf = _pool.Spawn(elfPrefab, spawnPos, Quaternion.identity);
+
+            // Initialize the elf after spawning from pool
+            if (spawnedElf != null)
+            {
+                ElfView elfView = spawnedElf.GetComponent<ElfView>();
+                if (elfView != null)
+                    elfView.OnSpawned(spawnPos, elfData);
+                else
+                    Debug.LogError("Spawned prefab does not have ElfView component!", this);
+            }
         }
 
         [Inject]
