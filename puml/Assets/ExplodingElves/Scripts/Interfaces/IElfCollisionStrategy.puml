@@ -1,0 +1,8 @@
+@startuml
+interface IElfCollisionStrategy {
+}
+class ColorBasedCollisionStrategy {
+    + Decide(elf1:Elf, elf2:Elf) : CollisionDecision
+}
+IElfCollisionStrategy <|-- ColorBasedCollisionStrategy
+@enduml

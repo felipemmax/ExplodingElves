@@ -1,0 +1,11 @@
+@startuml
+class SpawnerView {
+    + <<const>> DefaultInterval : float = 5f
+    + Interval : float <<get>>
+    + SetInterval(newInterval:float) : void
+    + Spawn() : void
+}
+MonoBehaviour <|-- SpawnerView
+ISpawner <|-- SpawnerView
+SpawnerView --> "ElfColor" ElfColor
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class ElfSpawnCooldownService {
+    + ElfSpawnCooldownService(cooldownDuration:float)
+    + CanSpawn() : bool
+    + RegisterSpawn() : void
+    + GetRemainingCooldown() : float
+}
+@enduml

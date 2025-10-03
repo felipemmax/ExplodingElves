@@ -5,9 +5,6 @@ using Random = UnityEngine.Random;
 
 namespace ExplodingElves.Core.Characters
 {
-    /// <summary>
-    ///     Single Responsibility: Handle elf movement using NavMesh.
-    /// </summary>
     public class ElfMovementBehavior
     {
         private const float WanderRadius = 20f;

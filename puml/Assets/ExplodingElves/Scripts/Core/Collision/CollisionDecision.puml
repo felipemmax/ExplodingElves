@@ -1,0 +1,9 @@
+@startuml
+struct CollisionDecision {
+    + ShouldSpawnExtra : bool
+    + ShouldExplodeBoth : bool
+    + {static} SpawnExtra() : CollisionDecision
+    + {static} ExplodeBoth() : CollisionDecision
+    + {static} None() : CollisionDecision
+}
+@enduml

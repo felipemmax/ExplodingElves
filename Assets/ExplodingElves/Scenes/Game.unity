@@ -457,7 +457,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -823,7 +823,6 @@ GameObject:
   - component: {fileID: 530746511}
   - component: {fileID: 530746510}
   - component: {fileID: 530746509}
-  - component: {fileID: 530746512}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -843,13 +842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c5bfaa010e4fd3bd314d1b4e1a1306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplodingElves.Managers.GameInstaller
-  elfPrefab: {fileID: 8488362142280054705, guid: 3aaaaeccf607a0d4da9eb90961eb9af9, type: 3}
-  explosionPrefabResourcePath: Prefabs/ExplosionFX
-  spawnVFXPrefabResourcePath: Prefabs/SpawnVFX
-  collisionVFXPrefabResourcePath: Prefabs/CollisionVFX
-  explosionWarmupCount: 8
-  spawnVFXWarmupCount: 5
-  collisionVFXWarmupCount: 5
+  _poolWarmupConfig: {fileID: 11400000, guid: 81cde2826124ea8498cde986ad379b51, type: 2}
   extraSpawnCooldownSeconds: 1.5
 --- !u!114 &530746510
 MonoBehaviour:
@@ -898,19 +891,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &530746512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 530746508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ef4a27dcf14a199c10c1b8d6ad007d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExplodingElves.Managers.GameManager
-  spawnOnStart: 1
 --- !u!1 &601366060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,7 +1591,7 @@ GameObject:
   - component: {fileID: 1056669055}
   - component: {fileID: 1056669054}
   m_Layer: 0
-  m_Name: Column (1)
+  m_Name: Column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2455,7 +2435,7 @@ GameObject:
   - component: {fileID: 1599806153}
   - component: {fileID: 1599806152}
   m_Layer: 0
-  m_Name: Column (2)
+  m_Name: Column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

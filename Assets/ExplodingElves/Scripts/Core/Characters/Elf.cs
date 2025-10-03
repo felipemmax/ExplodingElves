@@ -1,30 +1,28 @@
 ﻿using System;
-using UnityEngine;
 
 namespace ExplodingElves.Core.Characters
 {
     public class Elf
     {
-        public Elf(ElfData data)
+        public Elf(ElfData data, bool isDead = false, bool isStunned = false)
         {
             Data = data ?? throw new ArgumentNullException(nameof(data));
-            IsDead = false;
-            IsStunned = false;
+            IsDead = isDead;
+            IsStunned = isStunned;
         }
 
         public ElfData Data { get; }
         public ElfColor Color => Data.ElfColor;
         public float Speed => Data.Speed;
-        public bool IsDead { get; set; }
-        public bool IsStunned { get; set; }
-        public Vector3 Position { get; set; }
+        public bool IsDead { get; private set; }
+        public bool IsStunned { get; private set; }
 
-        public void Kill()
+        public void MarkAsDead()
         {
             IsDead = true;
         }
 
-        public void Stun()
+        public void ApplyStun()
         {
             IsStunned = true;
         }

@@ -1,0 +1,7 @@
+@startuml
+class SpawnerRegistryService {
+    + SpawnerRegistryService(spawners:List<ISpawner>)
+    + GetSpawnerForColor(color:ElfColor) : ISpawner
+    + RequestSpawn(color:ElfColor) : bool
+}
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+!include .\\.\Assets\ExplodingElves\Scripts\Interfaces\IElfCollisionStrategy.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Interfaces\IPrefabPool.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Interfaces\ISpawnCooldownService.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Interfaces\ISpawner.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Interfaces\ISpawnRequestService.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Interfaces\IVFXService.puml
+!include .\\.\Assets\ExplodingElves\Scripts\UI\IntervalUI.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Views\SpawnerView.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Camera\CameraControl.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\Elf.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\ElfColor.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\ElfController.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\ElfData.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\ElfMovementBehavior.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\ElfStateManager.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Characters\ElfView.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Collision\CollisionDecision.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Collision\ElfCollisionHandler.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Pooling\AutoReturnToPool.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Pooling\PoolWarmupEntry.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Pooling\PrefabPool.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Services\ElfSpawnCooldownService.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Services\SpawnerRegistryService.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Core\Services\VFXService.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Infrastructure\Configuration\PoolWarmupConfig.puml
+!include .\\.\Assets\ExplodingElves\Scripts\Infrastructure\DI\GameInstaller.puml
+@enduml

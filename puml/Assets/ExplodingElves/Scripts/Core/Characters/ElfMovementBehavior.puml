@@ -1,0 +1,9 @@
+@startuml
+class ElfMovementBehavior {
+    + ElfMovementBehavior(agent:NavMeshAgent, directionChangeInterval:Vector2)
+    + Update(deltaTime:float, isStunned:bool, isDead:bool) : void
+    + Stop() : void
+    + Resume() : void
+    + GetCurrentSpeed() : float
+}
+@enduml

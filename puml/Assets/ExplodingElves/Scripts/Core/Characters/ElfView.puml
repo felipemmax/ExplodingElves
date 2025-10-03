@@ -1,0 +1,13 @@
+@startuml
+class ElfView {
+    + Initialize(data:ElfData, spawnPosition:Vector3) : void
+    + Despawn() : void
+    + OnSpawned(position:Vector3, data:ElfData) : void
+}
+MonoBehaviour <|-- ElfView
+ElfView --> "CollisionStrategy" IElfCollisionStrategy
+ElfView --> "Pool" IPrefabPool
+ElfView --> "VFXService" IVFXService
+ElfView --> "CollisionHandler" ElfCollisionHandler
+ElfView --> "Controller" ElfController
+@enduml

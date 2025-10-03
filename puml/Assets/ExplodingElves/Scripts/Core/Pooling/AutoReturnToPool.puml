@@ -1,0 +1,6 @@
+@startuml
+class AutoReturnToPool {
+    + Begin(seconds:float, pool:IPrefabPool) : void
+}
+MonoBehaviour <|-- AutoReturnToPool
+@enduml

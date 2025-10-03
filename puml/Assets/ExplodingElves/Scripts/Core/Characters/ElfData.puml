@@ -1,0 +1,10 @@
+@startuml
+class ElfData {
+    + Speed : float <<get>>
+    + MovementSmoothTime : float <<get>>
+}
+ScriptableObject <|-- ElfData
+ElfData --> "DirectionChangeInterval" Vector2
+ElfData --> "ElfColor" ElfColor
+ElfData --> "ElfMaterial" Material
+@enduml

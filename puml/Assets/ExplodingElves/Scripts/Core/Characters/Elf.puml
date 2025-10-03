@@ -1,0 +1,13 @@
+@startuml
+class Elf {
+    + Elf(data:ElfData, isDead:bool, isStunned:bool)
+    + Speed : float <<get>>
+    + IsDead : bool <<get>>
+    + IsStunned : bool <<get>>
+    + MarkAsDead() : void
+    + ApplyStun() : void
+    + RemoveStun() : void
+}
+Elf --> "Data" ElfData
+Elf --> "Color" ElfColor
+@enduml

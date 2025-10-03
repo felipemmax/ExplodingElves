@@ -1,0 +1,7 @@
+@startuml
+class GameInstaller {
+    + extraSpawnCooldownSeconds : float = 3f
+    + <<override>> InstallBindings() : void
+}
+MonoInstaller <|-- GameInstaller
+@enduml

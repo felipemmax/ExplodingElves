@@ -1,0 +1,11 @@
+@startuml
+class ElfController {
+    + ElfController(initialState:Elf, agent:NavMeshAgent, collisionStrategy:IElfCollisionStrategy)
+    + IsMoving : bool <<get>>
+    + Update(deltaTime:float) : void
+    + ApplyStun() : void
+    + Kill() : void
+    + HandleCollisionWith(other:ElfController) : CollisionDecision
+}
+ElfController --> "CurrentState" Elf
+@enduml

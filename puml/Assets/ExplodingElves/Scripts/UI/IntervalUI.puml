@@ -1,0 +1,5 @@
+@startuml
+class IntervalUI {
+}
+MonoBehaviour <|-- IntervalUI
+@enduml

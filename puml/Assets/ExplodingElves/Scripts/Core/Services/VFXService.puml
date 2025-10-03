@@ -1,0 +1,9 @@
+@startuml
+class VFXService {
+    + VFXService(prefabPool:IPrefabPool, container:DiContainer)
+    + PlayExplosion(position:Vector3) : void
+    + PlaySpawnVFX(position:Vector3) : void
+    + PlayCollisionVFX(position:Vector3) : void
+}
+IVFXService <|-- VFXService
+@enduml

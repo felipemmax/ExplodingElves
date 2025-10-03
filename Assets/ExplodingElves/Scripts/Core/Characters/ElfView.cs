@@ -1,15 +1,11 @@
-﻿using ExplodingElves.Interfaces;
-using ExplodingElves.Services;
+﻿using ExplodingElves.Core.Collision;
+using ExplodingElves.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
 namespace ExplodingElves.Core.Characters
 {
-    /// <summary>
-    ///     View: Handles only Unity-specific rendering, animation, and physics callbacks.
-    ///     Single Responsibility: Visual representation of the elf.
-    /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Collider))]
     public class ElfView : MonoBehaviour
@@ -31,11 +27,11 @@ namespace ExplodingElves.Core.Characters
 
         private NavMeshAgent _agent;
 
+        // Dependencies injected via Zenject
         [Inject] public IElfCollisionStrategy CollisionStrategy { get; set; }
         [Inject] public IPrefabPool Pool { get; set; }
-        [Inject] public VFXService VFXService { get; set; }
-        [Inject] public ElfSpawnCooldownService CooldownService { get; set; }
-        [Inject] public SpawnerRegistryService SpawnerRegistry { get; set; }
+        [Inject] public IVFXService VFXService { get; set; }
+        [Inject] public ElfCollisionHandler CollisionHandler { get; set; }
 
         public ElfController Controller { get; private set; }
 
@@ -56,7 +52,7 @@ namespace ExplodingElves.Core.Characters
 
         private void OnTriggerEnter(Collider other)
         {
-            if (Controller == null || Controller.Model.IsDead)
+            if (Controller == null || Controller.CurrentState.IsDead)
                 return;
 
             ElfView otherView = other.GetComponent<ElfView>();
@@ -79,8 +75,7 @@ namespace ExplodingElves.Core.Characters
             ApplyVisuals(data);
             EnableCollisions();
             PlayAnimation(SpawnHash);
-            
-            // Play spawn VFX
+
             VFXService?.PlaySpawnVFX(spawnPosition);
         }
 
@@ -137,7 +132,8 @@ namespace ExplodingElves.Core.Characters
             if (animator == null || Controller == null)
                 return;
 
-            bool isWalking = Controller.IsMoving && !Controller.Model.IsStunned && !Controller.Model.IsDead;
+            Elf state = Controller.CurrentState;
+            bool isWalking = Controller.IsMoving && !state.IsStunned && !state.IsDead;
 
             animator.SetBool(WalkHash, isWalking);
             animator.SetBool(IdleHash, !isWalking);
@@ -145,13 +141,13 @@ namespace ExplodingElves.Core.Characters
 
         private void CheckFallDeath()
         {
-            if (transform.position.y < -10f) Despawn();
+            if (transform.position.y < -10f)
+                Despawn();
         }
 
         private void PlayAnimation(int animationHash)
         {
-            if (animator != null)
-                animator.SetTrigger(animationHash);
+            animator?.SetTrigger(animationHash);
         }
 
         private void EnableCollisions()
@@ -166,60 +162,24 @@ namespace ExplodingElves.Core.Characters
 
         private void HandleCollision(ElfView otherView)
         {
-            // Apply stun to both
-            Controller.ApplyStun();
-            otherView.Controller.ApplyStun();
+            Vector3 collisionPoint = transform.position;
 
-            // Play hit animations
+            // Play hit animations immediately
             PlayAnimation(HitHash);
             otherView.PlayAnimation(HitHash);
 
-            // Get collision decision
-            CollisionDecision decision = Controller.HandleCollisionWith(otherView.Controller);
-            Vector3 collisionPoint = transform.position;
+            // Delegate collision logic to handler
+            ElfCollisionHandler.CollisionResult result =
+                CollisionHandler.ProcessCollision(Controller, otherView.Controller);
 
-            // Execute decision
-            if (decision.ShouldSpawnExtra)
-            {
-                // Play collision VFX for same-color collision
+            // Execute visual results
+            if (result.ShouldSpawnExtra)
                 VFXService?.PlayCollisionVFX(collisionPoint);
-                RequestSpawnFromSpawner(otherView);
-            }
 
-            if (decision.ShouldExplodeBoth)
+            if (result.ShouldExplodeBoth)
             {
                 Explode(collisionPoint);
                 otherView.Explode(collisionPoint);
-            }
-        }
-
-        private void RequestSpawnFromSpawner(ElfView otherView)
-        {
-            if (SpawnerRegistry == null || CooldownService == null)
-            {
-                Debug.LogWarning("Required services not injected");
-                return;
-            }
-
-            // Check GLOBAL cooldown
-            if (!CooldownService.CanSpawn())
-            {
-                float remaining = CooldownService.GetRemainingCooldown();
-                Debug.Log($"Spawn on cooldown ({remaining:F2}s remaining)");
-                return;
-            }
-
-            // Get the color of the colliding elves (they're the same color)
-            ElfColor colorToSpawn = Controller.Model.Color;
-
-            // Request spawn from the appropriate spawner
-            bool spawned = SpawnerRegistry.RequestSpawn(colorToSpawn);
-
-            if (spawned)
-            {
-                // Register the spawn to start cooldown
-                CooldownService.RegisterSpawn();
-                Debug.Log($"Extra {colorToSpawn} elf spawn requested from spawner");
             }
         }
 
@@ -234,21 +194,9 @@ namespace ExplodingElves.Core.Characters
             Invoke(nameof(Despawn), DeathDespawnDelay);
         }
 
-        // Pool lifecycle hooks
         public void OnSpawned(Vector3 position, ElfData data)
         {
             Initialize(data, position);
-        }
-
-        public void OnDespawned()
-        {
-            Controller = null;
-
-            if (_agent != null)
-            {
-                _agent.isStopped = true;
-                _agent.ResetPath();
-            }
         }
     }
 }

@@ -1,0 +1,6 @@
+@startuml
+class PoolWarmupEntry {
+    + warmupCount : int
+}
+PoolWarmupEntry --> "prefab" GameObject
+@enduml

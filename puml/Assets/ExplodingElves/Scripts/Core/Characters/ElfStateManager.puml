@@ -1,0 +1,11 @@
+@startuml
+class ElfStateManager {
+    + ElfStateManager(elf:Elf)
+    + IsDead : bool <<get>>
+    + IsStunned : bool <<get>>
+    + Update(deltaTime:float) : void
+    + ApplyStun() : void
+    + Kill() : void
+}
+ElfStateManager --> "CurrentState" Elf
+@enduml
