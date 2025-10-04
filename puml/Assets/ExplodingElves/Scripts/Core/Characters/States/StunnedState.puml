@@ -1,0 +1,11 @@
+@startuml
+class StunnedState {
+    - <<const>> StunDuration : float = 0.5f
+    - _stunTimeRemaining : float
+    + StunnedState(stateManager:ElfStateManager)
+    + <<override>> Enter() : void
+    + <<override>> Update(deltaTime:float) : void
+    + <<override>> ApplyStun() : void
+}
+ElfBaseState <|-- StunnedState
+@enduml

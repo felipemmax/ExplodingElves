@@ -1,4 +1,7 @@
 @startuml
 interface ISpawnCooldownService {
+    CanSpawn() : bool
+    GetRemainingCooldown() : float
+    RegisterSpawn() : void
 }
 @enduml

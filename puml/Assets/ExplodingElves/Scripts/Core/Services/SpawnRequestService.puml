@@ -1,0 +1,10 @@
+@startuml
+class SpawnRequestService {
+    + SpawnRequestService(spawners:List<SpawnerView>)
+    + RequestSpawn(color:ElfColor) : bool
+}
+class "List`1"<T> {
+}
+ISpawnRequestService <|-- SpawnRequestService
+SpawnRequestService --> "_spawners<SpawnerView>" "List`1"
+@enduml

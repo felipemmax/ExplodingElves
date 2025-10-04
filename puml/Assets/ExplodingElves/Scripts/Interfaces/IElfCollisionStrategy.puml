@@ -1,5 +1,6 @@
 @startuml
 interface IElfCollisionStrategy {
+    Decide(elf1:Elf, elf2:Elf) : CollisionDecision
 }
 class ColorBasedCollisionStrategy {
     + Decide(elf1:Elf, elf2:Elf) : CollisionDecision

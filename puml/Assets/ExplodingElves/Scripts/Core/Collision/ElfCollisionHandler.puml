@@ -2,11 +2,14 @@
 class ElfCollisionHandler {
     + ElfCollisionHandler(cooldownService:ISpawnCooldownService, spawnRequestService:ISpawnRequestService)
     + ProcessCollision(controller1:ElfController, controller2:ElfController) : CollisionResult
+    - TryRequestSpawn(color:ElfColor) : bool
 }
 struct CollisionResult {
     + ShouldExplodeBoth : bool
     + ShouldSpawnExtra : bool
 }
+ElfCollisionHandler --> "_cooldownService" ISpawnCooldownService
+ElfCollisionHandler --> "_spawnRequestService" ISpawnRequestService
 ElfCollisionHandler +-- CollisionResult
 CollisionResult --> "Decision" CollisionDecision
 @enduml

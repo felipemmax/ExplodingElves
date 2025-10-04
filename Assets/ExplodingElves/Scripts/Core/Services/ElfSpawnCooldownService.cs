@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using ExplodingElves.Interfaces;
+using UnityEngine;
 
 namespace ExplodingElves.Core.Services
 {
-    public class ElfSpawnCooldownService
+    public class ElfSpawnCooldownService : ISpawnCooldownService
     {
         private readonly float _cooldownDuration;
         private float _lastSpawnTime = -999f;

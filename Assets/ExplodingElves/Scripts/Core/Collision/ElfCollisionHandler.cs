@@ -34,7 +34,7 @@ namespace ExplodingElves.Core.Collision
                 ShouldSpawnExtra = false
             };
 
-            if (decision.ShouldSpawnExtra) result.ShouldSpawnExtra = TryRequestSpawn(controller1.CurrentState.Color);
+            if (decision.ShouldSpawnExtra) result.ShouldSpawnExtra = TryRequestSpawn(controller1.Elf.Color);
 
             return result;
         }

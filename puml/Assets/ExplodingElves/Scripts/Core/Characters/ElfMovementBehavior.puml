@@ -1,9 +1,18 @@
 @startuml
 class ElfMovementBehavior {
+    - <<const>> WanderRadius : float = 20f
+    - <<const>> MaxRandomAttempts : int = 10
+    - _timeSinceLastDirectionChange : float
     + ElfMovementBehavior(agent:NavMeshAgent, directionChangeInterval:Vector2)
-    + Update(deltaTime:float, isStunned:bool, isDead:bool) : void
+    + Update(deltaTime:float) : void
     + Stop() : void
     + Resume() : void
     + GetCurrentSpeed() : float
+    - ShouldChangeDirection() : bool
+    - PickNewDestination() : void
+    - ResetTimer() : void
+    - TryGetRandomNavMeshPoint(center:Vector3, radius:float, result:Vector3) : bool
 }
+ElfMovementBehavior --> "_agent" NavMeshAgent
+ElfMovementBehavior --> "_directionChangeInterval" Vector2
 @enduml

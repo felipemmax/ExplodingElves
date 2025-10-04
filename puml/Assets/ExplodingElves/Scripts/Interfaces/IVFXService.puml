@@ -1,4 +1,7 @@
 @startuml
 interface IVFXService {
+    PlayExplosion(position:Vector3) : void
+    PlaySpawnVFX(position:Vector3) : void
+    PlayCollisionVFX(position:Vector3) : void
 }
 @enduml

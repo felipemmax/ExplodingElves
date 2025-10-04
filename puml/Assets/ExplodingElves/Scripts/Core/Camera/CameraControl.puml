@@ -1,5 +1,38 @@
 @startuml
 class CameraControl {
+    - dragSpeed : float = 2f
+    - keyboardSpeed : float = 10f
+    - edgePanSpeed : float = 10f
+    - edgePanBorder : float = 50f
+    - useSmoothing : bool = true
+    - smoothTime : float = 0.1f
+    - _isDragging : bool
+    - Awake() : void
+    - Update() : void
+    - OnEnable() : void
+    - OnDisable() : void
+    - OnDestroy() : void
+    - OnDrawGizmosSelected() : void
+    - SetupInputActions() : void
+    - CreateInputActionsProgrammatically() : void
+    - OnPointerDragStarted(context:InputAction.CallbackContext) : void
+    - OnPointerDragCanceled(context:InputAction.CallbackContext) : void
+    - OnTouchPressStarted(context:InputAction.CallbackContext) : void
+    - OnTouchPressCanceled(context:InputAction.CallbackContext) : void
+    - HandleDrag() : void
+    - HandleKeyboardMovement() : void
+    - HandleEdgePanning() : void
+    - ClampPosition(position:Vector3) : Vector3
 }
 MonoBehaviour <|-- CameraControl
+CameraControl o-> "minBounds" Vector2
+CameraControl o-> "maxBounds" Vector2
+CameraControl --> "inputActions" InputActionAsset
+CameraControl --> "_dragOrigin" Vector3
+CameraControl --> "_moveAction" InputAction
+CameraControl --> "_pointerDragAction" InputAction
+CameraControl --> "_pointerPositionAction" InputAction
+CameraControl --> "_touchPositionAction" InputAction
+CameraControl --> "_touchPressAction" InputAction
+CameraControl o-> "_velocity" Vector3
 @enduml

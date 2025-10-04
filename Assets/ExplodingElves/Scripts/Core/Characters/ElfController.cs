@@ -1,4 +1,5 @@
 ﻿using System;
+using ExplodingElves.Core.Characters.States;
 using ExplodingElves.Core.Collision;
 using ExplodingElves.Interfaces;
 using UnityEngine.AI;
@@ -12,55 +13,44 @@ namespace ExplodingElves.Core.Characters
         private readonly ElfStateManager _stateManager;
 
         public ElfController(
-            Elf initialState,
+            Elf elf,
             NavMeshAgent agent,
             IElfCollisionStrategy collisionStrategy)
         {
-            if (initialState == null) throw new ArgumentNullException(nameof(initialState));
+            Elf = elf ?? throw new ArgumentNullException(nameof(elf));
             if (agent == null) throw new ArgumentNullException(nameof(agent));
 
-            _stateManager = new ElfStateManager(initialState);
             _collisionStrategy = collisionStrategy ?? throw new ArgumentNullException(nameof(collisionStrategy));
-            _movement = new ElfMovementBehavior(agent, initialState.Data.DirectionChangeInterval);
+            _movement = new ElfMovementBehavior(agent, Elf.Data.DirectionChangeInterval);
+            _stateManager = new ElfStateManager(Elf, _movement);
         }
 
-        public Elf CurrentState => _stateManager.CurrentState;
+        public Elf Elf { get; }
+        public bool IsDead => _stateManager.IsDead;
+        public bool IsStunned => _stateManager.IsStunned;
         public bool IsMoving => _movement.GetCurrentSpeed() > 0.1f;
 
         public void Update(float deltaTime)
         {
-            if (_stateManager.IsDead)
-                return;
-
-            bool wasStunned = _stateManager.IsStunned;
             _stateManager.Update(deltaTime);
-            bool isStunnedNow = _stateManager.IsStunned;
-
-            // Resume movement when stun ends
-            if (wasStunned && !isStunnedNow)
-                _movement.Resume();
-
-            _movement.Update(deltaTime, isStunnedNow, _stateManager.IsDead);
         }
 
         public void ApplyStun()
         {
             _stateManager.ApplyStun();
-            _movement.Stop();
         }
 
         public void Kill()
         {
             _stateManager.Kill();
-            _movement.Stop();
         }
 
         public CollisionDecision HandleCollisionWith(ElfController other)
         {
-            if (other == null || _stateManager.IsDead || other._stateManager.IsDead)
+            if (other == null || IsDead || other.IsDead)
                 return CollisionDecision.None();
 
-            return _collisionStrategy.Decide(CurrentState, other.CurrentState);
+            return _collisionStrategy.Decide(Elf, other.Elf);
         }
     }
 }

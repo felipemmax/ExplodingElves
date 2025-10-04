@@ -2,6 +2,9 @@
 class GameInstaller {
     + extraSpawnCooldownSeconds : float = 3f
     + <<override>> InstallBindings() : void
+    - BindCoreServices() : void
+    - BindPools() : void
 }
 MonoInstaller <|-- GameInstaller
+GameInstaller --> "_poolWarmupConfig" PoolWarmupConfig
 @enduml

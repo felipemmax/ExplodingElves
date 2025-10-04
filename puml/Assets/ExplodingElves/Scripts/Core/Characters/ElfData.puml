@@ -1,9 +1,15 @@
 @startuml
 class ElfData {
+    - speed : float = 3f
+    - movementSmoothTime : float = 0.5f
     + Speed : float <<get>>
     + MovementSmoothTime : float <<get>>
+    - OnValidate() : void
 }
 ScriptableObject <|-- ElfData
+ElfData o-> "directionChangeInterval" Vector2
+ElfData --> "elfColor" ElfColor
+ElfData --> "elfMaterial" Material
 ElfData --> "DirectionChangeInterval" Vector2
 ElfData --> "ElfColor" ElfColor
 ElfData --> "ElfMaterial" Material

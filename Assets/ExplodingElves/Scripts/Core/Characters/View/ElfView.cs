@@ -52,7 +52,7 @@ namespace ExplodingElves.Core.Characters
 
         private void OnTriggerEnter(Collider other)
         {
-            if (Controller == null || Controller.CurrentState.IsDead)
+            if (Controller == null || Controller.IsDead)
                 return;
 
             ElfView otherView = other.GetComponent<ElfView>();
@@ -132,8 +132,7 @@ namespace ExplodingElves.Core.Characters
             if (animator == null || Controller == null)
                 return;
 
-            Elf state = Controller.CurrentState;
-            bool isWalking = Controller.IsMoving && !state.IsStunned && !state.IsDead;
+            bool isWalking = Controller.IsMoving && !Controller.IsStunned && !Controller.IsDead;
 
             animator.SetBool(WalkHash, isWalking);
             animator.SetBool(IdleHash, !isWalking);

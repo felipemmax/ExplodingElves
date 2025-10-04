@@ -1,0 +1,9 @@
+@startuml
+class NormalState {
+    + NormalState(stateManager:ElfStateManager)
+    + <<override>> Enter() : void
+    + <<override>> Update(deltaTime:float) : void
+    + <<override>> ApplyStun() : void
+}
+ElfBaseState <|-- NormalState
+@enduml

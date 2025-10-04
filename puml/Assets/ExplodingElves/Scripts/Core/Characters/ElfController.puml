@@ -1,11 +1,16 @@
 @startuml
 class ElfController {
-    + ElfController(initialState:Elf, agent:NavMeshAgent, collisionStrategy:IElfCollisionStrategy)
+    + ElfController(elf:Elf, agent:NavMeshAgent, collisionStrategy:IElfCollisionStrategy)
+    + IsDead : bool <<get>>
+    + IsStunned : bool <<get>>
     + IsMoving : bool <<get>>
     + Update(deltaTime:float) : void
     + ApplyStun() : void
     + Kill() : void
     + HandleCollisionWith(other:ElfController) : CollisionDecision
 }
-ElfController --> "CurrentState" Elf
+ElfController --> "_collisionStrategy" IElfCollisionStrategy
+ElfController --> "_movement" ElfMovementBehavior
+ElfController --> "_stateManager" ElfStateManager
+ElfController --> "Elf" Elf
 @enduml

@@ -1,0 +1,12 @@
+@startuml
+abstract class ElfBaseState {
+    # ElfBaseState(stateManager:ElfStateManager)
+    + <<virtual>> Enter() : void
+    + <<virtual>> Update(deltaTime:float) : void
+    + <<virtual>> Exit() : void
+    + <<virtual>> ApplyStun() : void
+    + <<virtual>> Kill() : void
+}
+IElfState <|-- ElfBaseState
+ElfBaseState --> "StateManager" ElfStateManager
+@enduml

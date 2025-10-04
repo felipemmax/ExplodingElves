@@ -1,0 +1,14 @@
+@startuml
+class ElfStateManager {
+    + ElfStateManager(elf:Elf, movement:ElfMovementBehavior)
+    + IsDead : bool <<get>>
+    + IsStunned : bool <<get>>
+    + Update(deltaTime:float) : void
+    + ApplyStun() : void
+    + Kill() : void
+    + TransitionToState(newState:IElfState) : void
+}
+ElfStateManager --> "CurrentState" IElfState
+ElfStateManager --> "Elf" Elf
+ElfStateManager --> "Movement" ElfMovementBehavior
+@enduml

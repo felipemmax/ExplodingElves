@@ -1,0 +1,9 @@
+@startuml
+class PoolWarmer {
+    + PoolWarmer(prefabPool:IPrefabPool, poolWarmupConfig:PoolWarmupConfig)
+    + Initialize() : void
+}
+IInitializable <|-- PoolWarmer
+PoolWarmer --> "_prefabPool" IPrefabPool
+PoolWarmer --> "_poolWarmupConfig" PoolWarmupConfig
+@enduml

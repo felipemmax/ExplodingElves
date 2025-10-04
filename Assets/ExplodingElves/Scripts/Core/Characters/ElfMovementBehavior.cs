@@ -21,14 +21,8 @@ namespace ExplodingElves.Core.Characters
             _timeSinceLastDirectionChange = 0f;
         }
 
-        public void Update(float deltaTime, bool isStunned, bool isDead)
+        public void Update(float deltaTime)
         {
-            if (isDead || isStunned)
-            {
-                Stop();
-                return;
-            }
-
             _timeSinceLastDirectionChange += deltaTime;
 
             if (ShouldChangeDirection())

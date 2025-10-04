@@ -1,11 +1,27 @@
 @startuml
 class SpawnerView {
+    - <<const>> MinInterval : float = 0.1f
     + <<const>> DefaultInterval : float = 5f
+    - interval : float
+    - spawnRadius : float = 1.5f
+    - OnEnable() : void
+    - OnDisable() : void
+    - OnDrawGizmos() : void
+    - OnDrawGizmosSelected() : void
+    - OnValidate() : void
     + Interval : float <<get>>
     + SetInterval(newInterval:float) : void
     + Spawn() : void
+    - Construct(pool:IPrefabPool) : void
+    - StartSpawnLoop() : void
+    - StopSpawnLoop() : void
+    - RestartSpawnLoop() : void
+    - SpawnRoutine() : IEnumerator
 }
 MonoBehaviour <|-- SpawnerView
-ISpawner <|-- SpawnerView
+SpawnerView --> "elfData" ElfData
+SpawnerView --> "elfPrefab" GameObject
+SpawnerView --> "_pool" IPrefabPool
+SpawnerView --> "_spawnLoop" Coroutine
 SpawnerView --> "ElfColor" ElfColor
 @enduml

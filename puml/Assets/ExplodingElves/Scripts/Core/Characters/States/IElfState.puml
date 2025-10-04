@@ -1,0 +1,9 @@
+@startuml
+interface IElfState {
+    Enter() : void
+    Update(deltaTime:float) : void
+    Exit() : void
+    ApplyStun() : void
+    Kill() : void
+}
+@enduml

@@ -1,9 +1,16 @@
 @startuml
 class VFXService {
+    - <<const>> DefaultVFXLifetime : float = 2f
     + VFXService(prefabPool:IPrefabPool, container:DiContainer)
     + PlayExplosion(position:Vector3) : void
     + PlaySpawnVFX(position:Vector3) : void
     + PlayCollisionVFX(position:Vector3) : void
+    - SpawnVFX(prefab:GameObject, position:Vector3, lifetime:float) : void
 }
 IVFXService <|-- VFXService
+VFXService --> "_container" DiContainer
+VFXService --> "_prefabPool" IPrefabPool
+VFXService --> "_collisionVFXPrefab" GameObject
+VFXService --> "_explosionVFXPrefab" GameObject
+VFXService --> "_spawnVFXPrefab" GameObject
 @enduml

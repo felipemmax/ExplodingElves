@@ -1,0 +1,9 @@
+@startuml
+class DeadState {
+    + DeadState(stateManager:ElfStateManager)
+    + <<override>> Enter() : void
+    + <<override>> ApplyStun() : void
+    + <<override>> Kill() : void
+}
+ElfBaseState <|-- DeadState
+@enduml

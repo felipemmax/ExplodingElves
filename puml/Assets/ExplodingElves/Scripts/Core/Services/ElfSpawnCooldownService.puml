@@ -1,8 +1,11 @@
 @startuml
 class ElfSpawnCooldownService {
+    - <<readonly>> _cooldownDuration : float
+    - _lastSpawnTime : float
     + ElfSpawnCooldownService(cooldownDuration:float)
     + CanSpawn() : bool
     + RegisterSpawn() : void
     + GetRemainingCooldown() : float
 }
+ISpawnCooldownService <|-- ElfSpawnCooldownService
 @enduml

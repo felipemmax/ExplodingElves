@@ -1,4 +1,5 @@
 @startuml
 interface ISpawnRequestService {
+    RequestSpawn(color:ElfColor) : bool
 }
 @enduml

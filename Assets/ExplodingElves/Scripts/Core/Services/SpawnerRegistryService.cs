@@ -1,47 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ExplodingElves.Core.Characters;
+using ExplodingElves.Core.Spawners;
 using ExplodingElves.Interfaces;
-using UnityEngine;
 
 namespace ExplodingElves.Core.Services
 {
-    public class SpawnerRegistryService
+    public class SpawnerRegistryService : ISpawnerRegistryService
     {
-        private readonly Dictionary<ElfColor, ISpawner> _spawnersByColor = new();
+        private readonly List<ISpawner> _spawners = new();
 
-        public SpawnerRegistryService(List<ISpawner> spawners)
+        public void Register(ISpawner spawner)
         {
-            if (spawners == null || spawners.Count == 0)
-            {
-                Debug.LogWarning("[SpawnerRegistry] No spawners provided during construction");
-                return;
-            }
-
-            foreach (ISpawner spawner in spawners)
-                if (spawner != null)
-                    _spawnersByColor[spawner.ElfColor] = spawner;
-
-            Debug.Log($"[SpawnerRegistry] Registered {_spawnersByColor.Count} spawners");
+            if (!_spawners.Contains(spawner)) _spawners.Add(spawner);
         }
 
-        public ISpawner GetSpawnerForColor(ElfColor color)
+        public void Unregister(ISpawner spawner)
         {
-            _spawnersByColor.TryGetValue(color, out ISpawner spawner);
-            return spawner;
+            _spawners.Remove(spawner);
         }
 
-        public bool RequestSpawn(ElfColor color)
+        public ISpawner GetSpawner(ElfColor color)
         {
-            ISpawner spawner = GetSpawnerForColor(color);
-
-            if (spawner == null)
-            {
-                Debug.LogWarning($"[SpawnerRegistry] No spawner found for color {color}");
-                return false;
-            }
-
-            spawner.Spawn();
-            return true;
+            return _spawners.FirstOrDefault(s => s.ElfColor == color);
         }
     }
 }

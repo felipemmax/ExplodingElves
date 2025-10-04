@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using ExplodingElves.Core.Characters;
-using ExplodingElves.Core.Collision;
+﻿using ExplodingElves.Core.Collision;
 using ExplodingElves.Core.Pooling;
 using ExplodingElves.Core.Services;
+using ExplodingElves.Core.Spawners;
 using ExplodingElves.Infrastructure.Configuration;
 using ExplodingElves.Interfaces;
 using UnityEngine;
 using Zenject;
 
 namespace ExplodingElves.Infrastructure.DI
+
 {
     /// <summary>
     ///     Dependency injection configuration for the game.
@@ -26,8 +26,16 @@ namespace ExplodingElves.Infrastructure.DI
         {
             BindCoreServices();
             BindPools();
-            BindSceneComponents();
-            WarmupPools();
+
+            if (_poolWarmupConfig != null)
+            {
+                Container.Bind<PoolWarmupConfig>().FromInstance(_poolWarmupConfig).AsSingle();
+                Container.BindInterfacesAndSelfTo<PoolWarmer>().AsSingle();
+            }
+            else
+            {
+                Debug.LogWarning("[GameInstaller] No PoolWarmupConfig assigned. Skipping pool warmup.");
+            }
 
             Debug.Log("[GameInstaller] All bindings installed successfully");
         }
@@ -40,60 +48,29 @@ namespace ExplodingElves.Infrastructure.DI
             // Collision strategy - using color-based rules
             Container.Bind<IElfCollisionStrategy>().To<ColorBasedCollisionStrategy>().AsSingle();
 
-            // Spawn cooldown service - GLOBAL cooldown
-            Container.Bind<ElfSpawnCooldownService>()
+            // Spawn services
+            Container.Bind<ISpawnCooldownService>().To<ElfSpawnCooldownService>()
                 .AsSingle()
                 .WithArguments(extraSpawnCooldownSeconds);
-
-            // Spawner registry
-            Container.Bind<SpawnerRegistryService>()
-                .AsSingle()
-                .OnInstantiated<SpawnerRegistryService>((context, registry) =>
-                {
-                    // Inject all spawners from the scene
-                    List<ISpawner> spawners = context.Container.Resolve<List<ISpawner>>();
-                    Debug.Log($"[GameInstaller] Resolved {spawners.Count} spawners for registry");
-                });
+            Container.Bind<ISpawnRequestService>().To<SpawnRequestService>().AsSingle();
 
             Container.Bind<ElfCollisionHandler>()
                 .AsSingle()
                 .NonLazy();
+
+            // Spawner services and factory
+            Container.Bind<ISpawnerRegistryService>().To<SpawnerRegistryService>().AsSingle();
+            // 1. Tell Zenject how to create an ISpawner
+            Container.Bind<ISpawner>().To<Spawner>().AsTransient();
+            // This single line creates the factory implementation for us.
+            // It binds IFactory<SpawnerData, ISpawner> to an auto-generated factory
+            // that creates instances of the Spawner class.
+            Container.BindIFactory<SpawnerData, ISpawner>().To<Spawner>().AsSingle();
         }
 
         private void BindPools()
         {
             Container.Bind<IPrefabPool>().To<PrefabPool>().AsSingle();
-        }
-
-        private void BindSceneComponents()
-        {
-            // Auto-discover all spawners in scene
-            Container.Bind<ISpawner>().FromComponentsInHierarchy().AsCached();
-        }
-
-        private void WarmupPools()
-        {
-            if (_poolWarmupConfig == null)
-            {
-                Debug.LogWarning("[GameInstaller] No PoolWarmupConfig assigned. Skipping pool warmup.");
-                return;
-            }
-
-            IPrefabPool prefabPool = Container.Resolve<IPrefabPool>();
-
-            foreach (PoolWarmupEntry entry in _poolWarmupConfig.warmupEntries)
-            {
-                if (entry.prefab == null)
-                {
-                    Debug.LogWarning("[GameInstaller] Null prefab found in warmup configuration. Skipping.");
-                    continue;
-                }
-
-                if (entry.warmupCount <= 0) continue;
-
-                prefabPool.Warmup(entry.prefab, entry.warmupCount);
-                Debug.Log($"[GameInstaller] Warmed up {entry.warmupCount} instances of '{entry.prefab.name}'");
-            }
         }
     }
 }

@@ -1,10 +1,33 @@
 @startuml
 class ElfView {
+    - <<const>> DeathDespawnDelay : float = 6f
+    - {static} <<readonly>> WalkHash : int
+    - {static} <<readonly>> IdleHash : int
+    - {static} <<readonly>> DeathHash : int
+    - {static} <<readonly>> SpawnHash : int
+    - {static} <<readonly>> HitHash : int
+    - Awake() : void
+    - Update() : void
+    - OnTriggerEnter(other:Collider) : void
     + Initialize(data:ElfData, spawnPosition:Vector3) : void
     + Despawn() : void
+    - SetupComponents() : void
+    - WarpToPosition(position:Vector3) : void
+    - ApplyVisuals(data:ElfData) : void
+    - UpdateAnimation() : void
+    - CheckFallDeath() : void
+    - PlayAnimation(animationHash:int) : void
+    - EnableCollisions() : void
+    - DisableCollisions() : void
+    - HandleCollision(otherView:ElfView) : void
+    - Explode(position:Vector3) : void
     + OnSpawned(position:Vector3, data:ElfData) : void
 }
 MonoBehaviour <|-- ElfView
+ElfView --> "targetRenderer" Renderer
+ElfView --> "animator" Animator
+ElfView --> "elfCollider" Collider
+ElfView --> "_agent" NavMeshAgent
 ElfView --> "CollisionStrategy" IElfCollisionStrategy
 ElfView --> "Pool" IPrefabPool
 ElfView --> "VFXService" IVFXService
