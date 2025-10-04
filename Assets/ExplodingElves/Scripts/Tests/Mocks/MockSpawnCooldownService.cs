@@ -6,7 +6,7 @@ namespace ExplodingElves.Tests.Mocks
     {
         public bool CanSpawnResult { get; set; } = true;
         public float RemainingCooldown { get; set; } = 0f;
-        
+
         public int CanSpawnCallCount { get; private set; }
         public int RegisterSpawnCallCount { get; private set; }
         public int GetRemainingCooldownCallCount { get; private set; }

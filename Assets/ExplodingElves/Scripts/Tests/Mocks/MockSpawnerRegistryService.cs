@@ -7,8 +7,8 @@ namespace ExplodingElves.Tests.Mocks
 {
     public class MockSpawnerRegistryService : ISpawnerRegistryService
     {
-        private readonly Dictionary<ElfColor, ISpawner> _spawners = new Dictionary<ElfColor, ISpawner>();
-        
+        private readonly Dictionary<ElfColor, ISpawner> _spawners = new();
+
         public int RegisterCallCount { get; private set; }
         public int UnregisterCallCount { get; private set; }
         public int GetSpawnerCallCount { get; private set; }
@@ -28,7 +28,7 @@ namespace ExplodingElves.Tests.Mocks
         public ISpawner GetSpawner(ElfColor color)
         {
             GetSpawnerCallCount++;
-            return _spawners.TryGetValue(color, out var spawner) ? spawner : null;
+            return _spawners.TryGetValue(color, out ISpawner spawner) ? spawner : null;
         }
     }
 }

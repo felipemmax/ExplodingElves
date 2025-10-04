@@ -1,7 +1,6 @@
-﻿using ExplodingElves.Core.Characters;
-using ExplodingElves.Interfaces;
+﻿using ExplodingElves.Interfaces;
 
-namespace ExplodingElves.Core.Collision
+namespace ExplodingElves.Core.Characters.Collision
 {
     public class ElfCollisionHandler
     {
@@ -43,10 +42,7 @@ namespace ExplodingElves.Core.Collision
         {
             if (_cooldownService == null || _spawnRequestService == null) return false;
 
-            if (!_cooldownService.CanSpawn())
-            {
-                return false;
-            }
+            if (!_cooldownService.CanSpawn()) return false;
 
             bool spawned = _spawnRequestService.RequestSpawn(color);
 

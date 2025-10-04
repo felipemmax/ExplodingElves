@@ -1,9 +1,8 @@
 ﻿using ExplodingElves.Interfaces;
 using UnityEngine;
 
-namespace ExplodingElves.Core.Services
+namespace ExplodingElves.Core.Characters.Services
 {
-    //This is to prevent creating multiple instances of the elves very fast and crashing the game.
     public class SpawnGlobalCooldownService : ISpawnCooldownService
     {
         private readonly float _cooldownDuration;

@@ -1,11 +1,10 @@
 ﻿using ExplodingElves.Core.Characters;
-using ExplodingElves.Core.Spawners;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
-namespace ExplodingElves.Views
+namespace ExplodingElves.Core.Spawners.Views
 {
     public class SpawnerView : MonoBehaviour, IPointerClickHandler
     {

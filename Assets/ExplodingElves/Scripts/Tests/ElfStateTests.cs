@@ -1,20 +1,16 @@
-﻿using ExplodingElves.Core.Characters;
+﻿using System;
+using ExplodingElves.Core.Characters;
 using ExplodingElves.Core.Characters.States;
 using ExplodingElves.Tests.Mocks;
 using NUnit.Framework;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ExplodingElves.Tests
 {
     [TestFixture]
     public class ElfStateTests
     {
-        private ElfStateManager _stateManager;
-        private Elf _elf;
-        private ElfMovementBehavior _movement;
-        private MockNavMeshAgentWrapper _mockAgent;
-        private ElfData _mockElfData;
-
         [SetUp]
         public void Setup()
         {
@@ -32,15 +28,21 @@ namespace ExplodingElves.Tests
         {
             if (_mockElfData != null)
                 Object.DestroyImmediate(_mockElfData);
-            
+
             _mockAgent?.Destroy();
         }
+
+        private ElfStateManager _stateManager;
+        private Elf _elf;
+        private ElfMovementBehavior _movement;
+        private MockNavMeshAgentWrapper _mockAgent;
+        private ElfData _mockElfData;
 
         [Test]
         public void NormalState_EnterResumesMovement()
         {
             // Arrange
-            var state = new NormalState(_stateManager);
+            NormalState state = new(_stateManager);
 
             // Act
             state.Enter();
@@ -66,7 +68,7 @@ namespace ExplodingElves.Tests
         public void StunnedState_EnterStopsMovement()
         {
             // Arrange
-            var state = new StunnedState(_stateManager);
+            StunnedState state = new(_stateManager);
 
             // Act
             state.Enter();
@@ -135,14 +137,14 @@ namespace ExplodingElves.Tests
         public void StateManager_ThrowsExceptionWhenElfIsNull()
         {
             // Act & Assert
-            Assert.Throws<System.ArgumentNullException>(() => new ElfStateManager(null, _movement));
+            Assert.Throws<ArgumentNullException>(() => new ElfStateManager(null, _movement));
         }
 
         [Test]
         public void StateManager_ThrowsExceptionWhenMovementIsNull()
         {
             // Act & Assert
-            Assert.Throws<System.ArgumentNullException>(() => new ElfStateManager(_elf, null));
+            Assert.Throws<ArgumentNullException>(() => new ElfStateManager(_elf, null));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using ExplodingElves.Interfaces;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace ExplodingElves.Core.Characters
@@ -85,7 +86,7 @@ namespace ExplodingElves.Core.Characters
                 Vector2 randomPoint = Random.insideUnitCircle * radius;
                 Vector3 candidate = center + new Vector3(randomPoint.x, 0, randomPoint.y);
 
-                if (UnityEngine.AI.NavMesh.SamplePosition(candidate, out UnityEngine.AI.NavMeshHit hit, radius, UnityEngine.AI.NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, radius, NavMesh.AllAreas))
                 {
                     result = hit.position;
                     return true;

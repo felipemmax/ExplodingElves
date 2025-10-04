@@ -1,5 +1,7 @@
 ﻿using System;
 using ExplodingElves.Core.Characters;
+using ExplodingElves.Core.Characters.View;
+using ExplodingElves.Core.Pooling;
 using ExplodingElves.Interfaces;
 using UnityEngine;
 using Zenject;

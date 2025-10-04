@@ -1,21 +1,21 @@
-﻿using ExplodingElves.Core.Services;
+﻿using ExplodingElves.Core.Characters.Services;
+using ExplodingElves.Core.Services;
 using ExplodingElves.Interfaces;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace ExplodingElves.Tests
 {
     [TestFixture]
     public class SpawnCooldownServiceTests
     {
-        private ISpawnCooldownService _service;
-        private const float CooldownDuration = 3f;
-
         [SetUp]
         public void Setup()
         {
             _service = new SpawnGlobalCooldownService(CooldownDuration);
         }
+
+        private ISpawnCooldownService _service;
+        private const float CooldownDuration = 3f;
 
         [Test]
         public void CanSpawn_InitiallyReturnsTrue()
@@ -63,7 +63,7 @@ namespace ExplodingElves.Tests
         public void NegativeCooldownDuration_TreatedAsZero()
         {
             // Arrange
-            var service = new SpawnGlobalCooldownService(-5f);
+            SpawnGlobalCooldownService service = new(-5f);
 
             // Act
             service.RegisterSpawn();

@@ -4,10 +4,6 @@ using UnityEngine.AI;
 
 namespace ExplodingElves.Core.Characters
 {
-    /// <summary>
-    /// Concrete implementation of INavMeshAgentWrapper.
-    /// Adapts NavMeshAgent for testability.
-    /// </summary>
     public class NavMeshAgentWrapper : INavMeshAgentWrapper
     {
         private readonly NavMeshAgent _agent;
@@ -24,6 +20,7 @@ namespace ExplodingElves.Core.Characters
         }
 
         public Vector3 velocity => _agent.velocity;
+
         public bool enabled
         {
             get => _agent.enabled;

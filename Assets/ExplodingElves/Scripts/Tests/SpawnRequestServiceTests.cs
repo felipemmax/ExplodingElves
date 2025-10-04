@@ -1,5 +1,6 @@
 ﻿using ExplodingElves.Core.Characters;
 using ExplodingElves.Core.Services;
+using ExplodingElves.Core.Spawners.Services;
 using ExplodingElves.Interfaces;
 using ExplodingElves.Tests.Mocks;
 using NUnit.Framework;
@@ -9,9 +10,6 @@ namespace ExplodingElves.Tests
     [TestFixture]
     public class SpawnRequestServiceTests
     {
-        private ISpawnRequestService _service;
-        private MockSpawnerRegistryService _mockRegistry;
-
         [SetUp]
         public void Setup()
         {
@@ -19,11 +17,14 @@ namespace ExplodingElves.Tests
             _service = new SpawnRequestService(_mockRegistry);
         }
 
+        private ISpawnRequestService _service;
+        private MockSpawnerRegistryService _mockRegistry;
+
         [Test]
         public void RequestSpawn_WithRegisteredSpawner_SpawnsAndReturnsTrue()
         {
             // Arrange
-            var spawner = new MockSpawner { ElfColor = ElfColor.Red };
+            MockSpawner spawner = new() { ElfColor = ElfColor.Red };
             _mockRegistry.Register(spawner);
 
             // Act
@@ -48,9 +49,9 @@ namespace ExplodingElves.Tests
         public void RequestSpawn_CallsCorrectSpawnerForColor()
         {
             // Arrange
-            var redSpawner = new MockSpawner { ElfColor = ElfColor.Red };
-            var blueSpawner = new MockSpawner { ElfColor = ElfColor.Blue };
-            
+            MockSpawner redSpawner = new() { ElfColor = ElfColor.Red };
+            MockSpawner blueSpawner = new() { ElfColor = ElfColor.Blue };
+
             _mockRegistry.Register(redSpawner);
             _mockRegistry.Register(blueSpawner);
 

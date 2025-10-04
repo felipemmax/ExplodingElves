@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace ExplodingElves.Core.Infrastructure
+namespace ExplodingElves.Core.Pooling
 {
     public class ZenjectInstantiator : IGameObjectInstantiator
     {

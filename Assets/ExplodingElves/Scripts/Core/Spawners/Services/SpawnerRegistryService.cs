@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ExplodingElves.Core.Characters;
-using ExplodingElves.Core.Spawners;
 using ExplodingElves.Interfaces;
 
-namespace ExplodingElves.Core.Services
+namespace ExplodingElves.Core.Spawners.Services
 {
     public class SpawnerRegistryService : ISpawnerRegistryService
     {

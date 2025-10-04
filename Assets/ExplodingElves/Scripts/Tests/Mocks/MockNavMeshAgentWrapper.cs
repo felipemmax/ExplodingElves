@@ -6,23 +6,23 @@ namespace ExplodingElves.Tests.Mocks
     public class MockNavMeshAgentWrapper : INavMeshAgentWrapper
     {
         private readonly GameObject _gameObject;
-        
-        public bool isStopped { get; set; }
-        public Vector3 velocity { get; set; } = Vector3.zero;
-        public bool enabled { get; set; } = true;
-        public Transform transform { get; }
-        
-        public int ResetPathCallCount { get; private set; }
-        public int SetDestinationCallCount { get; private set; }
-        public int WarpCallCount { get; private set; }
-        public Vector3 LastDestination { get; private set; }
-        public Vector3 LastWarpPosition { get; private set; }
 
         public MockNavMeshAgentWrapper()
         {
             _gameObject = new GameObject("MockNavMeshAgent");
             transform = _gameObject.transform;
         }
+
+        public int ResetPathCallCount { get; private set; }
+        public int SetDestinationCallCount { get; private set; }
+        public int WarpCallCount { get; private set; }
+        public Vector3 LastDestination { get; private set; }
+        public Vector3 LastWarpPosition { get; private set; }
+
+        public bool isStopped { get; set; }
+        public Vector3 velocity { get; set; } = Vector3.zero;
+        public bool enabled { get; set; } = true;
+        public Transform transform { get; }
 
         public void ResetPath()
         {

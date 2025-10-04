@@ -1,6 +1,6 @@
 ﻿using System;
+using ExplodingElves.Core.Characters.Collision;
 using ExplodingElves.Core.Characters.States;
-using ExplodingElves.Core.Collision;
 using ExplodingElves.Interfaces;
 
 namespace ExplodingElves.Core.Characters

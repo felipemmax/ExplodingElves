@@ -6,14 +6,13 @@ namespace ExplodingElves.Tests.Mocks
 {
     public class MockSpawner : ISpawner
     {
-        public ElfColor ElfColor { get; set; }
-        public string SpawnRateDisplay { get; set; } = "Test";
-        
         public int SpawnCallCount { get; private set; }
         public int StartCallCount { get; private set; }
         public int StopCallCount { get; private set; }
         public int ChangeSpawnRateCallCount { get; private set; }
-        
+        public ElfColor ElfColor { get; set; }
+        public string SpawnRateDisplay { get; set; } = "Test";
+
         public event Action OnStateChanged;
 
         public void Start()
@@ -40,7 +39,7 @@ namespace ExplodingElves.Tests.Mocks
         public void Dispose()
         {
         }
-        
+
         public void TriggerStateChanged()
         {
             OnStateChanged?.Invoke();

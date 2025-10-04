@@ -1,5 +1,5 @@
 ﻿using ExplodingElves.Core.Characters;
-using ExplodingElves.Core.Collision;
+using ExplodingElves.Core.Characters.Collision;
 using ExplodingElves.Interfaces;
 
 namespace ExplodingElves.Tests.Mocks

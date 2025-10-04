@@ -9,16 +9,12 @@ namespace ExplodingElves.Tests
     [TestFixture]
     public class PrefabPoolTests
     {
-        private IPrefabPool _pool;
-        private MockGameObjectInstantiator _instantiator;
-        private GameObject _testPrefab;
-
         [SetUp]
         public void Setup()
         {
             _instantiator = new MockGameObjectInstantiator();
             _pool = new PrefabPool(_instantiator);
-            
+
             _testPrefab = new GameObject("TestPrefab");
         }
 
@@ -28,6 +24,10 @@ namespace ExplodingElves.Tests
             if (_testPrefab != null)
                 Object.DestroyImmediate(_testPrefab);
         }
+
+        private IPrefabPool _pool;
+        private MockGameObjectInstantiator _instantiator;
+        private GameObject _testPrefab;
 
         [Test]
         public void Spawn_WithNullPrefab_ReturnsNull()
@@ -43,7 +43,7 @@ namespace ExplodingElves.Tests
         public void Spawn_CreatesNewInstanceWhenPoolEmpty()
         {
             // Arrange
-            var newInstance = new GameObject("Instance");
+            GameObject newInstance = new("Instance");
             _instantiator.SetResult(_testPrefab, newInstance);
 
             // Act

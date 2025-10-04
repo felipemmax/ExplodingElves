@@ -1,10 +1,11 @@
-﻿using ExplodingElves.Core.Collision;
+﻿using ExplodingElves.Core.Characters.Collision;
+using ExplodingElves.Core.Pooling;
 using ExplodingElves.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-namespace ExplodingElves.Core.Characters
+namespace ExplodingElves.Core.Characters.View
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Collider))]
@@ -69,7 +70,7 @@ namespace ExplodingElves.Core.Characters
         public void Initialize(ElfData data, Vector3 spawnPosition)
         {
             Elf elf = new(data);
-            var agentWrapper = new NavMeshAgentWrapper(_agent);
+            NavMeshAgentWrapper agentWrapper = new(_agent);
             Controller = new ElfController(elf, agentWrapper, CollisionStrategy);
 
             WarpToPosition(spawnPosition);

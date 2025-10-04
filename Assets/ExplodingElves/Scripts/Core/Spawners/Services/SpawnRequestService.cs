@@ -1,9 +1,8 @@
 ﻿using ExplodingElves.Core.Characters;
-using ExplodingElves.Core.Spawners;
 using ExplodingElves.Interfaces;
 using UnityEngine;
 
-namespace ExplodingElves.Core.Services
+namespace ExplodingElves.Core.Spawners.Services
 {
     public class SpawnRequestService : ISpawnRequestService
     {

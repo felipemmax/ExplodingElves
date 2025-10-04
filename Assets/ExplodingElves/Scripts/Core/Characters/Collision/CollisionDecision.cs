@@ -1,4 +1,4 @@
-﻿namespace ExplodingElves.Core.Collision
+﻿namespace ExplodingElves.Core.Characters.Collision
 {
     public struct CollisionDecision
     {

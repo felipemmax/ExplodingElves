@@ -7,16 +7,13 @@ namespace ExplodingElves.Tests.Mocks
 {
     public class MockGameObjectInstantiator : IGameObjectInstantiator
     {
-        public int InstantiateCallCount { get; private set; }
         private readonly Dictionary<GameObject, Func<GameObject>> _results = new();
+        public int InstantiateCallCount { get; private set; }
 
         public GameObject Instantiate(GameObject prefab)
         {
             InstantiateCallCount++;
-            if (prefab != null && _results.TryGetValue(prefab, out var factory))
-            {
-                return factory();
-            }
+            if (prefab != null && _results.TryGetValue(prefab, out Func<GameObject> factory)) return factory();
             return new GameObject("DefaultMockInstance");
         }
 

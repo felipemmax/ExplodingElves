@@ -1,20 +1,16 @@
-﻿using ExplodingElves.Core.Characters;
-using ExplodingElves.Core.Collision;
+﻿using System;
+using ExplodingElves.Core.Characters;
+using ExplodingElves.Core.Characters.Collision;
 using ExplodingElves.Tests.Mocks;
 using NUnit.Framework;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ExplodingElves.Tests
 {
     [TestFixture]
     public class ElfControllerTests
     {
-        private ElfController _controller;
-        private Elf _elf;
-        private MockNavMeshAgentWrapper _mockAgent;
-        private MockElfCollisionStrategy _mockStrategy;
-        private ElfData _elfData;
-
         [SetUp]
         public void Setup()
         {
@@ -30,15 +26,21 @@ namespace ExplodingElves.Tests
         {
             if (_elfData != null)
                 Object.DestroyImmediate(_elfData);
-            
+
             _mockAgent?.Destroy();
         }
+
+        private ElfController _controller;
+        private Elf _elf;
+        private MockNavMeshAgentWrapper _mockAgent;
+        private MockElfCollisionStrategy _mockStrategy;
+        private ElfData _elfData;
 
         [Test]
         public void Constructor_ThrowsExceptionWhenElfIsNull()
         {
             // Act & Assert
-            Assert.Throws<System.ArgumentNullException>(() => 
+            Assert.Throws<ArgumentNullException>(() =>
                 new ElfController(null, _mockAgent, _mockStrategy));
         }
 
@@ -46,7 +48,7 @@ namespace ExplodingElves.Tests
         public void Constructor_ThrowsExceptionWhenAgentIsNull()
         {
             // Act & Assert
-            Assert.Throws<System.ArgumentNullException>(() => 
+            Assert.Throws<ArgumentNullException>(() =>
                 new ElfController(_elf, null, _mockStrategy));
         }
 
@@ -54,7 +56,7 @@ namespace ExplodingElves.Tests
         public void Constructor_ThrowsExceptionWhenStrategyIsNull()
         {
             // Act & Assert
-            Assert.Throws<System.ArgumentNullException>(() => 
+            Assert.Throws<ArgumentNullException>(() =>
                 new ElfController(_elf, _mockAgent, null));
         }
 
@@ -82,7 +84,7 @@ namespace ExplodingElves.Tests
         public void HandleCollisionWith_WhenDead_ReturnsNone()
         {
             // Arrange
-            var otherController = CreateController();
+            ElfController otherController = CreateController();
             _controller.Kill();
 
             // Act
@@ -97,7 +99,7 @@ namespace ExplodingElves.Tests
         public void HandleCollisionWith_WhenOtherIsDead_ReturnsNone()
         {
             // Arrange
-            var otherController = CreateController();
+            ElfController otherController = CreateController();
             otherController.Kill();
 
             // Act
@@ -123,8 +125,8 @@ namespace ExplodingElves.Tests
         public void HandleCollisionWith_DelegatesToStrategy()
         {
             // Arrange
-            var otherController = CreateController();
-            var expectedDecision = CollisionDecision.SpawnExtra();
+            ElfController otherController = CreateController();
+            CollisionDecision expectedDecision = CollisionDecision.SpawnExtra();
             _mockStrategy.DecisionToReturn = expectedDecision;
 
             // Act
@@ -138,9 +140,9 @@ namespace ExplodingElves.Tests
 
         private ElfController CreateController()
         {
-            var elfData = ScriptableObject.CreateInstance<ElfData>();
-            var elf = new Elf(elfData);
-            var agent = new MockNavMeshAgentWrapper();
+            ElfData elfData = ScriptableObject.CreateInstance<ElfData>();
+            Elf elf = new(elfData);
+            MockNavMeshAgentWrapper agent = new();
             return new ElfController(elf, agent, _mockStrategy);
         }
     }

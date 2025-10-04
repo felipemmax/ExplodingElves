@@ -1,6 +1,6 @@
-﻿using ExplodingElves.Core.Characters;
+﻿using System.Reflection;
+using ExplodingElves.Core.Characters;
 using ExplodingElves.Core.Characters.Collision;
-using ExplodingElves.Core.Collision;
 using ExplodingElves.Interfaces;
 using NUnit.Framework;
 using UnityEngine;
@@ -10,21 +10,17 @@ namespace ExplodingElves.Tests
     [TestFixture]
     public class CollisionStrategyTests
     {
-        private IElfCollisionStrategy _strategy;
-        private ElfData _redElfData;
-        private ElfData _blueElfData;
-
         [SetUp]
         public void Setup()
         {
             _strategy = new ColorBasedCollisionStrategy();
-            
+
             _redElfData = ScriptableObject.CreateInstance<ElfData>();
-            typeof(ElfData).GetField("elfColor", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            typeof(ElfData).GetField("elfColor", BindingFlags.NonPublic | BindingFlags.Instance)
                 ?.SetValue(_redElfData, ElfColor.Red);
-            
+
             _blueElfData = ScriptableObject.CreateInstance<ElfData>();
-            typeof(ElfData).GetField("elfColor", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            typeof(ElfData).GetField("elfColor", BindingFlags.NonPublic | BindingFlags.Instance)
                 ?.SetValue(_blueElfData, ElfColor.Blue);
         }
 
@@ -37,12 +33,16 @@ namespace ExplodingElves.Tests
                 Object.DestroyImmediate(_blueElfData);
         }
 
+        private IElfCollisionStrategy _strategy;
+        private ElfData _redElfData;
+        private ElfData _blueElfData;
+
         [Test]
         public void SameColorCollision_ShouldSpawnExtra()
         {
             // Arrange
-            var elf1 = new Elf(_redElfData);
-            var elf2 = new Elf(_redElfData);
+            Elf elf1 = new(_redElfData);
+            Elf elf2 = new(_redElfData);
 
             // Act
             CollisionDecision decision = _strategy.Decide(elf1, elf2);
@@ -56,8 +56,8 @@ namespace ExplodingElves.Tests
         public void DifferentColorCollision_ShouldExplodeBoth()
         {
             // Arrange
-            var elf1 = new Elf(_redElfData);
-            var elf2 = new Elf(_blueElfData);
+            Elf elf1 = new(_redElfData);
+            Elf elf2 = new(_blueElfData);
 
             // Act
             CollisionDecision decision = _strategy.Decide(elf1, elf2);
@@ -71,7 +71,7 @@ namespace ExplodingElves.Tests
         public void NullElf_ShouldReturnNoneDecision()
         {
             // Arrange
-            var elf = new Elf(_redElfData);
+            Elf elf = new(_redElfData);
 
             // Act
             CollisionDecision decision = _strategy.Decide(null, elf);

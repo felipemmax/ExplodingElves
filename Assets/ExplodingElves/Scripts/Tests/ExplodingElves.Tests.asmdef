@@ -1,23 +1,23 @@
 {
-    "name": "ExplodingElves.Test",
-    "rootNamespace": "",
-    "references": [
-        "GUID:95a726eab179378458f8b53ae7c009be",
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
-        "GUID:d9149a4e0ef435c45b10905a79471258",
-        "GUID:8c4dd21966739024fbd72155091d199e"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "NSubstitute.dll"
-    ],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "ExplodingElves.Test",
+  "rootNamespace": "",
+  "references": [
+    "GUID:95a726eab179378458f8b53ae7c009be",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:d9149a4e0ef435c45b10905a79471258",
+    "GUID:8c4dd21966739024fbd72155091d199e"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "NSubstitute.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

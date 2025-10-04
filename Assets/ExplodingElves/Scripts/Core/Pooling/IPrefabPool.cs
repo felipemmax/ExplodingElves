@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ExplodingElves.Interfaces
+namespace ExplodingElves.Core.Pooling
 {
     public interface IPrefabPool
     {

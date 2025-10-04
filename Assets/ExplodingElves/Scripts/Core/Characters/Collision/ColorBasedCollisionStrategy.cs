@@ -1,5 +1,4 @@
-﻿using ExplodingElves.Core.Collision;
-using ExplodingElves.Interfaces;
+﻿using ExplodingElves.Interfaces;
 
 namespace ExplodingElves.Core.Characters.Collision
 {

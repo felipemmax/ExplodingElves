@@ -1,8 +1,9 @@
 ﻿using ExplodingElves.Core.Characters.Collision;
-using ExplodingElves.Core.Collision;
+using ExplodingElves.Core.Characters.Services;
 using ExplodingElves.Core.Pooling;
 using ExplodingElves.Core.Services;
 using ExplodingElves.Core.Spawners;
+using ExplodingElves.Core.Spawners.Services;
 using ExplodingElves.Infrastructure.Configuration;
 using ExplodingElves.Interfaces;
 using UnityEngine;
@@ -67,8 +68,7 @@ namespace ExplodingElves.Infrastructure.DI
             // It binds IFactory<SpawnerData, ISpawner> to an auto-generated factory
             // that creates instances of the Spawner class.
             Container.BindIFactory<SpawnerData, ISpawner>().To<Spawner>().AsSingle();
-            Container.Bind<IGameObjectInstantiator>().To<ExplodingElves.Core.Infrastructure.ZenjectInstantiator>().AsSingle();
-
+            Container.Bind<IGameObjectInstantiator>().To<ZenjectInstantiator>().AsSingle();
         }
 
         private void BindPools()
