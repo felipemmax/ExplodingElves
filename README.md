@@ -35,7 +35,7 @@ You should see:
 
 
 ## Architecture (the short tour)
-![UML Diagram](UML Diagram.png)
+![UML Diagram](ExplodingElves/UML Diagram.png)
 The code leans into SOLID principles with Dependency Injection (Zenject) so things are easy to understand, swap, and test.
 
 - Layers and responsibilities
