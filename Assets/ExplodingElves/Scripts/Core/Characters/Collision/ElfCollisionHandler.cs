@@ -45,7 +45,6 @@ namespace ExplodingElves.Core.Collision
 
             if (!_cooldownService.CanSpawn())
             {
-                float remaining = _cooldownService.GetRemainingCooldown();
                 return false;
             }
 

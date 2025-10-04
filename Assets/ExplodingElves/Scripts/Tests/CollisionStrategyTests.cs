@@ -1,4 +1,5 @@
 ﻿using ExplodingElves.Core.Characters;
+using ExplodingElves.Core.Characters.Collision;
 using ExplodingElves.Core.Collision;
 using ExplodingElves.Interfaces;
 using NUnit.Framework;

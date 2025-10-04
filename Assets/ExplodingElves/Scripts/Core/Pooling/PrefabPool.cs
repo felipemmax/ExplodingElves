@@ -11,6 +11,7 @@ namespace ExplodingElves.Core.Pooling
         private readonly Dictionary<GameObject, GameObject> _instanceToPrefab = new();
         private readonly Dictionary<GameObject, Stack<GameObject>> _pools = new();
         private Transform _root;
+        private const int MAX_POOL_SIZE = 100;
 
         [Inject]
         public PrefabPool(IGameObjectInstantiator instantiator)
@@ -38,8 +39,13 @@ namespace ExplodingElves.Core.Pooling
             GameObject instance;
             if (stack.Count > 0)
                 instance = stack.Pop();
-            else
+            else if (GetTotalPoolSize() < MAX_POOL_SIZE)
                 instance = _instantiator.Instantiate(prefab);
+            else
+            {
+                Debug.LogWarning($"Pool size limit ({MAX_POOL_SIZE}) reached. Cannot spawn more instances.");
+                return null;
+            }
 
             _instanceToPrefab[instance] = prefab;
 
@@ -88,7 +94,10 @@ namespace ExplodingElves.Core.Pooling
                 _pools[prefab] = stack;
             }
 
-            for (int i = 0; i < count; i++)
+            int remainingSlots = MAX_POOL_SIZE - GetTotalPoolSize();
+            int actualCount = Mathf.Min(count, remainingSlots);
+
+            for (int i = 0; i < actualCount; i++)
             {
                 GameObject go = _instantiator.Instantiate(prefab);
                 go.SetActive(false);
@@ -97,6 +106,16 @@ namespace ExplodingElves.Core.Pooling
                 stack.Push(go);
                 _instanceToPrefab[go] = prefab;
             }
+        }
+
+        private int GetTotalPoolSize()
+        {
+            int total = 0;
+            foreach (var pool in _pools.Values)
+            {
+                total += pool.Count;
+            }
+            return total;
         }
 
         private void EnsureRoot()

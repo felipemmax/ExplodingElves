@@ -1,4 +1,5 @@
-﻿using ExplodingElves.Core.Collision;
+﻿using ExplodingElves.Core.Characters.Collision;
+using ExplodingElves.Core.Collision;
 using ExplodingElves.Core.Pooling;
 using ExplodingElves.Core.Services;
 using ExplodingElves.Core.Spawners;
