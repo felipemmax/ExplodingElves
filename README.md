@@ -36,7 +36,7 @@ You should see:
 
 ## Architecture (the short tour)
 
-![UML Diagram](ExplodingElves/UML Diagram.png)
+![UML Diagram](https://github.com/felipemmax/ExplodingElves/blob/18c2a9700741e7fe62fed87179ae5d602de513d3/UML%20Diagram.png)
 
 The code leans into SOLID principles with Dependency Injection (Zenject) so things are easy to understand, swap, and test.
 
