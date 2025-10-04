@@ -1,0 +1,25 @@
+@startuml
+class Spawner {
+    - _currentSpawnRateIndex : int = 3
+    - _isSpawning : bool
+    - _spawnTimer : float
+    + Spawner(data:SpawnerData, pool:IPrefabPool, tickableManager:TickableManager, registryService:ISpawnerRegistryService)
+    +  <<event>> OnStateChanged : Action 
+    + SpawnRateDisplay : string <<get>>
+    + Start() : void
+    + Stop() : void
+    + ChangeSpawnRate() : void
+    + Dispose() : void
+    + Spawn() : void
+    + Tick() : void
+    - ResetTimer() : void
+    - ResetTimerForNextSpawn() : void
+}
+ISpawner <|-- Spawner
+ITickable <|-- Spawner
+Spawner --> "_data" SpawnerData
+Spawner --> "_pool" IPrefabPool
+Spawner --> "_registryService" ISpawnerRegistryService
+Spawner --> "_tickableManager" TickableManager
+Spawner --> "ElfColor" ElfColor
+@enduml

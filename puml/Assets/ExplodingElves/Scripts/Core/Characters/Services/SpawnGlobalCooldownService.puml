@@ -1,0 +1,11 @@
+@startuml
+class SpawnGlobalCooldownService {
+    - <<readonly>> _cooldownDuration : float
+    - _lastSpawnTime : float
+    + SpawnGlobalCooldownService(cooldownDuration:float)
+    + CanSpawn() : bool
+    + RegisterSpawn() : void
+    + GetRemainingCooldown() : float
+}
+ISpawnCooldownService <|-- SpawnGlobalCooldownService
+@enduml

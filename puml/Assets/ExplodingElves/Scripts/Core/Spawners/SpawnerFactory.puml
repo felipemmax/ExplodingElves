@@ -1,0 +1,7 @@
+@startuml
+class SpawnerFactory {
+}
+class "PlaceholderFactory`2"<T1,T2> {
+}
+"PlaceholderFactory`2" "<SpawnerData,ISpawner>" <|-- SpawnerFactory
+@enduml

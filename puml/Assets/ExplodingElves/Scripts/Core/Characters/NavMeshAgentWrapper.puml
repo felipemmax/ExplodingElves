@@ -1,0 +1,14 @@
+@startuml
+class NavMeshAgentWrapper {
+    + NavMeshAgentWrapper(agent:NavMeshAgent)
+    + isStopped : bool <<get>> <<set>>
+    + enabled : bool <<get>> <<set>>
+    + ResetPath() : void
+    + SetDestination(target:Vector3) : bool
+    + Warp(newPosition:Vector3) : bool
+}
+INavMeshAgentWrapper <|-- NavMeshAgentWrapper
+NavMeshAgentWrapper --> "_agent" NavMeshAgent
+NavMeshAgentWrapper --> "velocity" Vector3
+NavMeshAgentWrapper --> "transform" Transform
+@enduml

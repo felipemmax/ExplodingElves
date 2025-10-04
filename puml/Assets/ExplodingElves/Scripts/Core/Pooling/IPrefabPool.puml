@@ -1,0 +1,7 @@
+@startuml
+interface IPrefabPool {
+    Spawn(prefab:GameObject, position:Vector3, rotation:Quaternion, parent:Transform) : GameObject
+    Despawn(instance:GameObject) : void
+    Warmup(prefab:GameObject, count:int, parent:Transform) : void
+}
+@enduml

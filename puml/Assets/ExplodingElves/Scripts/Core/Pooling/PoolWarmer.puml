@@ -4,6 +4,6 @@ class PoolWarmer {
     + Initialize() : void
 }
 IInitializable <|-- PoolWarmer
-PoolWarmer --> "_prefabPool" IPrefabPool
 PoolWarmer --> "_poolWarmupConfig" PoolWarmupConfig
+PoolWarmer --> "_prefabPool" IPrefabPool
 @enduml

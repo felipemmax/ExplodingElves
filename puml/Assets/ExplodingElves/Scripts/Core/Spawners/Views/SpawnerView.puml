@@ -1,0 +1,21 @@
+@startuml
+class SpawnerView {
+    - spawnRadius : float = 1.5f
+    - OnEnable() : void
+    - OnDisable() : void
+    - OnDestroy() : void
+    - OnDrawGizmos() : void
+    - OnDrawGizmosSelected() : void
+    - OnValidate() : void
+    + OnPointerClick(eventData:PointerEventData) : void
+    - Construct(spawnerFactory:IFactory<SpawnerData, ISpawner>) : void
+    - UpdateSpawnRateDisplay() : void
+}
+MonoBehaviour <|-- SpawnerView
+IPointerClickHandler <|-- SpawnerView
+SpawnerView --> "elfData" ElfData
+SpawnerView --> "elfPrefab" GameObject
+SpawnerView --> "spawnRateDisplay" TextMeshPro
+SpawnerView --> "_spawner" ISpawner
+SpawnerView --> "ElfColor" ElfColor
+@enduml

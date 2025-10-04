@@ -1,0 +1,11 @@
+@startuml
+class SpawnerRegistryService {
+    + Register(spawner:ISpawner) : void
+    + Unregister(spawner:ISpawner) : void
+    + GetSpawner(color:ElfColor) : ISpawner
+}
+class "List`1"<T> {
+}
+ISpawnerRegistryService <|-- SpawnerRegistryService
+SpawnerRegistryService o-> "_spawners<ISpawner>" "List`1"
+@enduml

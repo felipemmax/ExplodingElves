@@ -3,7 +3,7 @@ class ElfMovementBehavior {
     - <<const>> WanderRadius : float = 20f
     - <<const>> MaxRandomAttempts : int = 10
     - _timeSinceLastDirectionChange : float
-    + ElfMovementBehavior(agent:NavMeshAgent, directionChangeInterval:Vector2)
+    + ElfMovementBehavior(agent:INavMeshAgentWrapper, directionChangeInterval:Vector2)
     + Update(deltaTime:float) : void
     + Stop() : void
     + Resume() : void
@@ -13,6 +13,6 @@ class ElfMovementBehavior {
     - ResetTimer() : void
     - TryGetRandomNavMeshPoint(center:Vector3, radius:float, result:Vector3) : bool
 }
-ElfMovementBehavior --> "_agent" NavMeshAgent
+ElfMovementBehavior --> "_agent" INavMeshAgentWrapper
 ElfMovementBehavior --> "_directionChangeInterval" Vector2
 @enduml

@@ -1,0 +1,8 @@
+@startuml
+class SpawnRequestService {
+    + SpawnRequestService(spawnerRegistry:ISpawnerRegistryService)
+    + RequestSpawn(color:ElfColor) : bool
+}
+ISpawnRequestService <|-- SpawnRequestService
+SpawnRequestService --> "_spawnerRegistry" ISpawnerRegistryService
+@enduml

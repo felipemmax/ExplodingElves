@@ -1,0 +1,12 @@
+@startuml
+interface ISpawner {
+    SpawnRateDisplay : string <<get>>
+     <<event>> OnStateChanged : Action 
+    Start() : void
+    Stop() : void
+    ChangeSpawnRate() : void
+    Spawn() : void
+}
+IDisposable <|-- ISpawner
+ISpawner --> "ElfColor" ElfColor
+@enduml

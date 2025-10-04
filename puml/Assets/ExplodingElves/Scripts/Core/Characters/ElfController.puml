@@ -1,6 +1,6 @@
 @startuml
 class ElfController {
-    + ElfController(elf:Elf, agent:NavMeshAgent, collisionStrategy:IElfCollisionStrategy)
+    + ElfController(elf:Elf, agent:INavMeshAgentWrapper, collisionStrategy:IElfCollisionStrategy)
     + IsDead : bool <<get>>
     + IsStunned : bool <<get>>
     + IsMoving : bool <<get>>

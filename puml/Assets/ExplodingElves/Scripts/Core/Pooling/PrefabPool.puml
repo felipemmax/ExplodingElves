@@ -1,15 +1,17 @@
 @startuml
 class PrefabPool {
-    + PrefabPool(container:DiContainer)
+    - <<const>> MAX_POOL_SIZE : int = 100
+    + PrefabPool(instantiator:IGameObjectInstantiator)
     + Spawn(prefab:GameObject, position:Vector3, rotation:Quaternion, parent:Transform) : GameObject
     + Despawn(instance:GameObject) : void
     + Warmup(prefab:GameObject, count:int, parent:Transform) : void
+    - GetTotalPoolSize() : int
     - EnsureRoot() : void
 }
 class "Dictionary`2"<T1,T2> {
 }
 IPrefabPool <|-- PrefabPool
-PrefabPool --> "_container" DiContainer
+PrefabPool --> "_instantiator" IGameObjectInstantiator
 PrefabPool o-> "_instanceToPrefab<GameObject,GameObject>" "Dictionary`2"
 PrefabPool o-> "_pools<GameObject,Stack<GameObject>>" "Dictionary`2"
 PrefabPool --> "_root" Transform

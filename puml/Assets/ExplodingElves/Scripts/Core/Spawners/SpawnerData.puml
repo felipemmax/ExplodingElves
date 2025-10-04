@@ -1,0 +1,9 @@
+@startuml
+class SpawnerData {
+    + SpawnerData(spawnRadius:float, elfData:ElfData, elfPrefab:GameObject, spawnPosition:Vector3)
+    + SpawnRadius : float <<get>>
+}
+SpawnerData --> "ElfData" ElfData
+SpawnerData --> "ElfPrefab" GameObject
+SpawnerData --> "SpawnPosition" Vector3
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class ZenjectInstantiator {
+    + ZenjectInstantiator(container:DiContainer)
+    + Instantiate(prefab:GameObject) : GameObject
+}
+IGameObjectInstantiator <|-- ZenjectInstantiator
+ZenjectInstantiator --> "_container" DiContainer
+@enduml
