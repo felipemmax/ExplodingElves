@@ -30,12 +30,14 @@ You should see:
   - Zenject composition in GameInstaller. Interfaces everywhere. Logic is cleanly separated from presentation.
 - Business logic separated from presentation
   - Core logic in plain C# classes (POCOs). Unity‑specific bits live behind small adapters/components.
-- Nice‑to‑have: tests
+- Nice‑to-have: tests
   - There are unit tests for core systems under Assets/ExplodingElves/Scripts/Tests.
 
 
 ## Architecture (the short tour)
+
 ![UML Diagram](ExplodingElves/UML Diagram.png)
+
 The code leans into SOLID principles with Dependency Injection (Zenject) so things are easy to understand, swap, and test.
 
 - Layers and responsibilities
