@@ -7,15 +7,15 @@ namespace ExplodingElves.Core.Pooling
 {
     public class PrefabPool : IPrefabPool
     {
-        private readonly DiContainer _container;
+        private readonly IGameObjectInstantiator _instantiator;
         private readonly Dictionary<GameObject, GameObject> _instanceToPrefab = new();
         private readonly Dictionary<GameObject, Stack<GameObject>> _pools = new();
         private Transform _root;
 
         [Inject]
-        public PrefabPool(DiContainer container)
+        public PrefabPool(IGameObjectInstantiator instantiator)
         {
-            _container = container;
+            _instantiator = instantiator;
             EnsureRoot();
         }
 
@@ -39,7 +39,7 @@ namespace ExplodingElves.Core.Pooling
             if (stack.Count > 0)
                 instance = stack.Pop();
             else
-                instance = _container.InstantiatePrefab(prefab);
+                instance = _instantiator.Instantiate(prefab);
 
             _instanceToPrefab[instance] = prefab;
 
@@ -90,7 +90,7 @@ namespace ExplodingElves.Core.Pooling
 
             for (int i = 0; i < count; i++)
             {
-                GameObject go = _container.InstantiatePrefab(prefab);
+                GameObject go = _instantiator.Instantiate(prefab);
                 go.SetActive(false);
                 Transform t = go.transform;
                 t.SetParent(parent != null ? parent : _root, false);

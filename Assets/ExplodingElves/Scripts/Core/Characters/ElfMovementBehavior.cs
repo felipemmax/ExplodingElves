@@ -1,6 +1,6 @@
 ﻿using System;
+using ExplodingElves.Interfaces;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace ExplodingElves.Core.Characters
@@ -10,11 +10,11 @@ namespace ExplodingElves.Core.Characters
         private const float WanderRadius = 20f;
         private const int MaxRandomAttempts = 10;
 
-        private readonly NavMeshAgent _agent;
+        private readonly INavMeshAgentWrapper _agent;
         private readonly Vector2 _directionChangeInterval;
         private float _timeSinceLastDirectionChange;
 
-        public ElfMovementBehavior(NavMeshAgent agent, Vector2 directionChangeInterval)
+        public ElfMovementBehavior(INavMeshAgentWrapper agent, Vector2 directionChangeInterval)
         {
             _agent = agent ?? throw new ArgumentNullException(nameof(agent));
             _directionChangeInterval = directionChangeInterval;
@@ -85,7 +85,7 @@ namespace ExplodingElves.Core.Characters
                 Vector2 randomPoint = Random.insideUnitCircle * radius;
                 Vector3 candidate = center + new Vector3(randomPoint.x, 0, randomPoint.y);
 
-                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, radius, NavMesh.AllAreas))
+                if (UnityEngine.AI.NavMesh.SamplePosition(candidate, out UnityEngine.AI.NavMeshHit hit, radius, UnityEngine.AI.NavMesh.AllAreas))
                 {
                     result = hit.position;
                     return true;

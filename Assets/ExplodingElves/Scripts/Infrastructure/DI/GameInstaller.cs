@@ -49,7 +49,7 @@ namespace ExplodingElves.Infrastructure.DI
             Container.Bind<IElfCollisionStrategy>().To<ColorBasedCollisionStrategy>().AsSingle();
 
             // Spawn services
-            Container.Bind<ISpawnCooldownService>().To<ElfSpawnCooldownService>()
+            Container.Bind<ISpawnCooldownService>().To<SpawnGlobalCooldownService>()
                 .AsSingle()
                 .WithArguments(extraSpawnCooldownSeconds);
             Container.Bind<ISpawnRequestService>().To<SpawnRequestService>().AsSingle();
@@ -66,6 +66,8 @@ namespace ExplodingElves.Infrastructure.DI
             // It binds IFactory<SpawnerData, ISpawner> to an auto-generated factory
             // that creates instances of the Spawner class.
             Container.BindIFactory<SpawnerData, ISpawner>().To<Spawner>().AsSingle();
+            Container.Bind<IGameObjectInstantiator>().To<ExplodingElves.Core.Infrastructure.ZenjectInstantiator>().AsSingle();
+
         }
 
         private void BindPools()

@@ -2,7 +2,6 @@
 using ExplodingElves.Core.Characters.States;
 using ExplodingElves.Core.Collision;
 using ExplodingElves.Interfaces;
-using UnityEngine.AI;
 
 namespace ExplodingElves.Core.Characters
 {
@@ -14,7 +13,7 @@ namespace ExplodingElves.Core.Characters
 
         public ElfController(
             Elf elf,
-            NavMeshAgent agent,
+            INavMeshAgentWrapper agent,
             IElfCollisionStrategy collisionStrategy)
         {
             Elf = elf ?? throw new ArgumentNullException(nameof(elf));

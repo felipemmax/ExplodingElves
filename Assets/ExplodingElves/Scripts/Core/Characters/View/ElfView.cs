@@ -69,7 +69,8 @@ namespace ExplodingElves.Core.Characters
         public void Initialize(ElfData data, Vector3 spawnPosition)
         {
             Elf elf = new(data);
-            Controller = new ElfController(elf, _agent, CollisionStrategy);
+            var agentWrapper = new NavMeshAgentWrapper(_agent);
+            Controller = new ElfController(elf, agentWrapper, CollisionStrategy);
 
             WarpToPosition(spawnPosition);
             ApplyVisuals(data);
